@@ -1,5 +1,6 @@
 import Experience from "@/types/Experience";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
 
 type Props = { workExperience: Experience };
@@ -27,12 +28,13 @@ export default function ExperienceCard({ workExperience }: Props) {
 
         <div className="flex space-x-2 my-2">
           {workExperience.technologies.map((technology) => (
-            <img
-              loading="lazy"
+            <Image
               key={technology._id}
               src={technology.logo}
               alt={technology.title}
-              className="h-6 w-6 rounded-full"
+              className="rounded-full"
+              width={24}
+              height={24}
             />
           ))}
         </div>

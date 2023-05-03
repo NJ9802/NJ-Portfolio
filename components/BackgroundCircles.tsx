@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import gear from "@/public/gear.svg";
 
 type Props = {};
 
@@ -20,15 +22,21 @@ export default function BackgroundCircles({}: Props) {
         className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[37rem] w-[37rem] mt-52 z-0"
       />
       <div className="absolute border border-[#333333] rounded-full  h-[50rem] w-[50rem] mt-52 z-0 animate-[ping_2s_linear_infinite]" />
-      <img
+      <Image
+        priority
         className="absolute opacity-80 min-h-[14rem] min-w-[14rem] mt-52 z-0 animate-[reverseSpin_8s_linear_infinite]"
-        src="/gear.svg"
+        src={gear}
         alt="gear"
+        width={224}
+        height={224}
       />
-      <img
+      <Image
+        priority
         className="absolute opacity-60 min-h-[29rem] min-w-[29rem] mt-52 z-0 animate-[spin_8s_linear_infinite]"
-        src="/gear.svg"
+        src={gear}
         alt="gear"
+        width={464}
+        height={464}
       />
     </div>
   );

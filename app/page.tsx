@@ -21,7 +21,7 @@ const Home = async () => {
   return (
     <div
       className="h-screen snap-mandatory snap-y overflow-y-scroll 
-    overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#f2ab0a]/80 
+    overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#38bdf8]/80 
     scroll-smooth"
     >
       <section id="hero" className="snap-center">

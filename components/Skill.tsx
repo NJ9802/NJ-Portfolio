@@ -16,7 +16,7 @@ export default function Skill({ skill, directionUp }: Props) {
         transition={{ duration: 1 }}
         viewport={{ once: true }}
         className="rounded-full border border-gray-500 object-cover p-2 w-16 h-16 md:w-18 md:h-18 xl:w-18 xl:h-18
-        group-hover:grayscale transition duration-300 ease-in-out"
+        group-hover:grayscale transition duration-300 ease-in-out]"
         src={skill.logo}
         alt={skill.title}
         loading="lazy"

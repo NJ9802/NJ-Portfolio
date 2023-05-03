@@ -3,6 +3,7 @@ import React from "react";
 import SectionHeader from "./SectionHeader";
 import { motion } from "framer-motion";
 import Project from "@/types/Project";
+import Image from "next/image";
 
 type Props = {
   projects: Project[];
@@ -53,8 +54,9 @@ export default function Projects({ projects }: Props) {
 
               <div className="flex items-center justify-center space-x-2">
                 {project.technologies.map((technology) => (
-                  <img
-                    className="h-6 w-6"
+                  <Image
+                    width={24}
+                    height={24}
                     key={technology._id}
                     src={technology.logo}
                     alt={technology.title}
@@ -63,7 +65,7 @@ export default function Projects({ projects }: Props) {
               </div>
               <div
                 className="max-h-36 rounded-lg overflow-y-scroll p-5 md:scrollbar-thin md:scrollbar-track-black/10
-                md:scrollbar-thumb-[#38bdf8] bg-blue-100/10 shadow-xl"
+                md:scrollbar-thumb-[#38bdf8]"
               >
                 <p className="text-xs md:text-sm text-center md:text-left">
                   {project.summary}
