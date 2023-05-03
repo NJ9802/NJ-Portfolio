@@ -1,0 +1,56 @@
+"use client";
+
+import React from "react";
+import BackgroundCircles from "./BackgroundCircles";
+import { Cursor, useTypewriter } from "react-simple-typewriter";
+import PageInfo from "@/types/PageInfo";
+
+type Props = {
+  pageInfo: PageInfo;
+};
+
+export default function Hero({ pageInfo }: Props) {
+  const [text] = useTypewriter({
+    words: [
+      `Hi! I'm ${pageInfo.name}`,
+      "I Love Build Cool Sites!",
+      "Let's make Great Things!",
+    ],
+    loop: 0,
+    delaySpeed: 2000,
+  });
+
+  const sections = ["about", "experience", "skills", "projects"];
+  return (
+    <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+      <BackgroundCircles />
+      <img
+        loading="eager"
+        className="relative shadow-2xl rounded-full h-32 w-32 mx-auto object-cover"
+        src={pageInfo?.heroImage}
+        alt={pageInfo.name}
+      />
+      <div className="z-20">
+        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] md:tracking-[15px]">
+          {pageInfo.role}
+        </h2>
+        <h1 className="text-2xl lg:text-4xl font-semibold px-10 text-white">
+          <span className="mr-3">{text}</span>
+          <Cursor cursorColor="#38bdf8" />
+        </h1>
+        <nav className="pt-4">
+          {sections.map((section) => (
+            <a key={section} href={`#${section}`}>
+              <button
+                className="px-6 m-1 py-2 border border-[#242424] rounded-full uppercase text-xs
+    tracking-widest text-gray-500 shadow-2xl transition-all hover:border-[#38bdf8]/40 hover:text-[#38bdf8]/40"
+              >
+                {section}
+              </button>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+  );
+}
