@@ -8,9 +8,7 @@ type Props = {};
 export default function BackgroundCircles({}: Props) {
   return (
     <div className="relative flex justify-center items-center z-0">
-      <div className="absolute rounded-lg h-[31rem] w-[31rem] mt-[13rem] bg-black/10 backdrop-blur-lg z-10" />
-      <div className="absolute border border-[#333333] rounded-full h-72 w-72 mt-52 z-0" />
-      <div className="absolute border border-[#333333] rounded-full h-[31rem] w-[31rem] mt-52 z-0" />
+      <div className="absolute rounded-lg h-[33rem] w-[33rem] mt-[15rem] bg-black/10 backdrop-blur-md z-10" />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
@@ -21,22 +19,50 @@ export default function BackgroundCircles({}: Props) {
         transition={{ duration: 2.5 }}
         className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[37rem] w-[37rem] mt-52 z-0"
       />
-      <div className="absolute border border-[#333333] rounded-full  h-[50rem] w-[50rem] mt-52 z-0 animate-[ping_2s_linear_infinite]" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          scale: [1, 2, 2, 3, 1],
+          opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.4],
+          borderRadius: ["20%", "20%", "20%", "50%", "80%", "100%"],
+        }}
+        transition={{ duration: 2.5 }}
+        className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[56rem] w-[56rem] mt-52 z-0"
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          scale: [1, 2, 2, 3, 1],
+          opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.4],
+          borderRadius: ["20%", "20%", "20%", "50%", "80%", "100%"],
+        }}
+        transition={{ duration: 2.5 }}
+        className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[75rem] w-[75rem] mt-52 z-0"
+      />
+      <div className="absolute border border-[#333333] rounded-full  h-[32rem] w-[32rem] mt-52 z-0 animate-[ping_2s_linear_infinite]" />
       <Image
         priority
-        className="absolute opacity-80 min-h-[14rem] min-w-[14rem] mt-52 z-0 animate-[reverseSpin_8s_linear_infinite]"
+        className="absolute bottom-4 left-16 min-h-[10rem] min-w-[10rem] z-0 animate-[spin_6s_linear_infinite]"
         src={gear}
         alt="gear"
-        width={224}
-        height={224}
       />
       <Image
         priority
-        className="absolute opacity-60 min-h-[29rem] min-w-[29rem] mt-52 z-0 animate-[spin_8s_linear_infinite]"
+        className="absolute min-h-[11rem] min-w-[11rem] z-0 animate-[reverseSpin_9s_linear_infinite]"
         src={gear}
         alt="gear"
-        width={464}
-        height={464}
+      />
+      <Image
+        priority
+        className="absolute top-5 right-2 min-h-[20rem] min-w-[20rem] z-0 animate-[spin_15s_linear_infinite]"
+        src={gear}
+        alt="gear"
+      />
+      <Image
+        priority
+        className="absolute top-20 left-0 min-h-[23rem] min-w-[23rem] z-0 animate-[reverseSpin_16s_linear_infinite]"
+        src={gear}
+        alt="gear"
       />
     </div>
   );

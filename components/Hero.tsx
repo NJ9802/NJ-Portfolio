@@ -13,9 +13,9 @@ type Props = {
 export default function Hero({ pageInfo }: Props) {
   const [text] = useTypewriter({
     words: [
-      `Hi! I'm ${pageInfo.name}`,
-      "I Love Build Cool Sites!",
-      "Let's make Great Things!",
+      `Hi, I'm ${pageInfo.name}`,
+      "I love Engineering!",
+      "Let's do great things!",
     ],
     loop: 0,
     delaySpeed: 2000,
@@ -46,7 +46,8 @@ export default function Hero({ pageInfo }: Props) {
             <a key={section} href={`#${section}`}>
               <button
                 className="px-6 m-1 py-2 border border-[#242424] rounded-full uppercase text-xs
-    tracking-widest text-gray-500 shadow-2xl transition-all hover:border-[#38bdf8]/40 hover:text-[#38bdf8]/40"
+                tracking-widest text-gray-500 shadow-2xl transition-all duration-700 hover:border-[#38bdf8]/40
+               hover:text-[#38bdf8]/40"
               >
                 {section}
               </button>

@@ -16,7 +16,7 @@ export default async function RootLayout({
   const socials = await getSocials();
   return (
     <html lang="en">
-      <body className="bg-[#09101e] text-[#94a3b8] overflow-hidden">
+      <body className="bg-[#0f172a] text-[#94a3b8] overflow-hidden">
         <Header socials={socials} />
         <main>{children}</main>
         <Footer />
