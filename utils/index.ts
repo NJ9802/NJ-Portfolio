@@ -5,6 +5,7 @@ import Social from "@/types/Social";
 import Skill from "@/types/Skill";
 import { groq } from "next-sanity";
 import Project from "@/types/Project";
+import WithoutExperience from "@/types/WithoutExperience";
 
 export const getSocials = async (): Promise<Social[]> => {
   return clientFetch(groq`
@@ -52,6 +53,7 @@ export const getSkills = async (): Promise<Skill[]> => {
   }
   `);
 };
+
 export const getProjects = async (): Promise<Project[]> => {
   return clientFetch(groq`
   *[_type == "project"]{
@@ -66,6 +68,14 @@ export const getProjects = async (): Promise<Project[]> => {
       title,
       "logo":logo.asset->url,
     },
+  }
+  `);
+};
+
+export const getWithoutExperience = async (): Promise<WithoutExperience> => {
+  return clientFetch(groq`
+  *[_type == "withoutExperience"][0]{
+    content
   }
   `);
 };

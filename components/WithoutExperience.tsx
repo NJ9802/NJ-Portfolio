@@ -2,18 +2,13 @@ import React from "react";
 import picture from "@/public/freepikPicture.svg";
 import Image from "next/image";
 
-type Props = {};
+type Props = { content: string };
 
-function WithoutExperience({}: Props) {
+function WithoutExperience({ content }: Props) {
   return (
     <div className="flex flex-col shrink-0 items-center lg:space-x-20 space-y-10 justify-center lg:flex-row">
       <div className="max-w-lg text-center md:text-left">
-        <h4 className="text-base lg:text-lg">
-          Although I have not yet had formal work experience, I am actively
-          engaged in personal projects that showcase my skills and passion for
-          the field. I am eager to find my first real-world experience and
-          contribute my talents to a professional setting.
-        </h4>
+        <h4 className="text-base lg:text-lg">{content}</h4>
       </div>
       <figure className="flex flex-col items-center justify-center">
         <Image

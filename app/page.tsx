@@ -8,6 +8,7 @@ import {
   getPageInfo,
   getProjects,
   getSkills,
+  getWithoutExperience,
   getWorkExperience,
 } from "@/utils";
 import React from "react";
@@ -17,6 +18,7 @@ const Home = async () => {
   const workExperiences = await getWorkExperience();
   const skills = await getSkills();
   const projects = await getProjects();
+  const { content } = await getWithoutExperience();
 
   return (
     <div
@@ -33,7 +35,7 @@ const Home = async () => {
       </section>
 
       <section id="experience" className="snap-center">
-        <Experience workExperiences={workExperiences} />
+        <Experience workExperiences={workExperiences} content={content} />
       </section>
 
       <section id="skills" className="snap-center">

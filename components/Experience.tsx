@@ -6,9 +6,9 @@ import SectionHeader from "./SectionHeader";
 import Experience from "@/types/Experience";
 import WithoutExperience from "./WithoutExperience";
 
-type Props = { workExperiences: Experience[] };
+type Props = { workExperiences: Experience[]; content: string };
 
-export default function Experience({ workExperiences }: Props) {
+export default function Experience({ workExperiences, content }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -34,7 +34,7 @@ export default function Experience({ workExperiences }: Props) {
           ))}
         </div>
       ) : (
-        <WithoutExperience />
+        <WithoutExperience content={content} />
       )}
     </motion.div>
   );
