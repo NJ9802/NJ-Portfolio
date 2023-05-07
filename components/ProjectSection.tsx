@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useMouse } from "@mantine/hooks";
 import { useElementSize } from "@mantine/hooks";
 import { useState } from "react";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   project: Project;
@@ -55,17 +56,24 @@ items-center justify-center p-10 md:p-44 h-screen"
         className="relative overflow-hidden h-fit space-y-4 px-0 md:px-10 max-w-6xl
   bg-black/10 backdrop-blur-md rounded-lg p-5"
       >
-        <h4 className="text-md text-white xl:text-2xl font-semibold text-center">
-          <span className="underline decoration-[#38bdf8]/50">
-            Case Study {i + 1} of {totalProjects}:
-          </span>{" "}
-          {project.title}
-        </h4>
+        <div className="flex justify-center items-center space-x-2">
+          <h4 className="text-md  text-white xl:text-2xl font-semibold">
+            <span className="underline decoration-[#38bdf8]/50">
+              Case Study {i + 1} of {totalProjects}:
+            </span>{" "}
+            {project.title}
+          </h4>
+          <span className="md:hidden">
+            <a href={project.linkToDemo}>
+              <GlobeAltIcon className="h-4 w-4 text-gray-500" />
+            </a>
+          </span>
+        </div>
 
         <div className="flex items-center justify-center space-x-2">
           {project.technologies.map((technology) => (
             <Image
-            className="hover:scale-125 transition-transform duration-300"
+              className="hover:scale-125 transition-transform duration-300"
               width={24}
               height={24}
               key={technology._id}
