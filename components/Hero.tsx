@@ -23,7 +23,7 @@ export default function Hero({ pageInfo }: Props) {
 
   const sections = ["about", "experience", "skills", "projects"];
   return (
-    <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+    <div className="h-screen pt-16 flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
       <BackgroundCircles />
       <Image
         priority

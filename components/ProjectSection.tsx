@@ -52,7 +52,7 @@ items-center justify-center p-10 md:p-44 h-screen"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         ref={cardEl}
-        className="relative overflow-hidden h-fit space-y-4 shadow-2xl px-0 md:px-10 max-w-6xl
+        className="relative overflow-hidden h-fit space-y-4 px-0 md:px-10 max-w-6xl
   bg-black/10 backdrop-blur-md rounded-lg p-5"
       >
         <h4 className="text-md text-white xl:text-2xl font-semibold text-center">

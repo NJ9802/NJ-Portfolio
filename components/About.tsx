@@ -15,7 +15,7 @@ const About = ({ pageInfo }: Props) => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
       className="relative flex text-center md:text-left
-    md:flex-row max-w-7xl flex-col h-screen px-10 justify-center mx-auto
+    md:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
     items-center"
     >
       <SectionHeader title="About" />
@@ -28,15 +28,15 @@ const About = ({ pageInfo }: Props) => {
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
         alt={pageInfo.name}
-        className="mb-10 md:mb-0 flex-shrink-0 w-32 h-32 rounded-full object-cover md:rounded-lg
+        className="mt-[4rem] mb-5 md:my-0 flex-shrink-0 w-32 h-32 rounded-full object-cover md:rounded-lg
          md:w-64 md:h-96 xl:w-80 xl:h-96 "
       />
 
-      <div className="space-y-10 px-0 md:px-10">
-        <h4 className="text-2xl text-white md:text-4xl font-semibold">
+      <div className="space-y-5 px-0 md:px-10">
+        <h4 className="text-2xl pl-0 md:pl-5 text-white md:text-4xl font-semibold">
           Who am I ?
         </h4>
-        <p className="text-base max-h-80 pr-5 md:max-h-none md:pr-0 overflow-y-scroll">
+        <p className="text-base max-h-72 px-5 lg:max-h-none lg:pr-0 overflow-y-scroll">
           {pageInfo.backgroundInformation}
         </p>
       </div>
