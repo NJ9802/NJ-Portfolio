@@ -8,4 +8,10 @@
     text-gray-500 placeholder-gray-500 transition-all focus:border-[#38bdf8]/40
     focus:text-[#38bdf8]/60 hover:border-[#38bdf8]/40;
   }
+
+  .projectLink {
+    @apply mr-1 hidden xl:block px-6 py-2 border border-black/5 rounded-lg uppercase text-xs
+    tracking-widest text-gray-500 shadow-md transition-all duration-300 hover:border-[#38bdf8]/40
+   hover:text-[#38bdf8] bg-black/20
+  }
 }
