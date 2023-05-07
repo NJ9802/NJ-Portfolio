@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { getSocials } from "@/utils";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "NJ Portfolio",
@@ -27,6 +28,7 @@ export default async function RootLayout({
         <Header socials={socials} />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
