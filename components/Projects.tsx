@@ -27,6 +27,7 @@ export default function Projects({ projects }: Props) {
       >
         {projects.map((project, i) => (
           <ProjectSection
+            key={project._id}
             project={project}
             i={i}
             totalProjects={projects.length}
