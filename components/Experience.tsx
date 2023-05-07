@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import ExperienceCard from "./ExperienceCard";
 import SectionHeader from "./SectionHeader";
 import Experience from "@/types/Experience";
+import WithoutExperience from "./WithoutExperience";
 
 type Props = { workExperiences: Experience[] };
 
@@ -18,17 +19,23 @@ export default function Experience({ workExperiences }: Props) {
     >
       <SectionHeader title="Experience" />
 
-      <div
-        className="w-full flex space-x-5 overflow-x-scroll snap-mandatory snap-x 
-      scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#38bdf8]/80"
-      >
-        {workExperiences.map((workExperience) => (
-          <ExperienceCard
-            key={workExperience._id}
-            workExperience={workExperience}
-          />
-        ))}
-      </div>
+      {!workExperiences.length == false ? (
+        <div
+          className={`w-full flex ${
+            workExperiences.length == 1 ? "justify-center" : ""
+          } space-x-5 overflow-x-scroll snap-mandatory snap-x 
+      scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#38bdf8]/80`}
+        >
+          {workExperiences.map((workExperience) => (
+            <ExperienceCard
+              key={workExperience._id}
+              workExperience={workExperience}
+            />
+          ))}
+        </div>
+      ) : (
+        <WithoutExperience />
+      )}
     </motion.div>
   );
 }
