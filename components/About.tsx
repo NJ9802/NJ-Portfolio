@@ -34,9 +34,7 @@ const About = ({ pageInfo }: Props) => {
 
       <div className="space-y-10 px-0 md:px-10">
         <h4 className="text-2xl text-white md:text-4xl font-semibold">
-          Here is a{" "}
-          <span className="underline decoration-[#38bdf8]/50">little</span>{" "}
-          background
+          Who am I ?
         </h4>
         <p className="text-base max-h-80 pr-5 md:max-h-none md:pr-0 overflow-y-scroll">
           {pageInfo.backgroundInformation}

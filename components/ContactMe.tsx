@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
-import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
+import { PhoneIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import ContactMeForm from "./ContactMeForm";
 import PageInfo from "@/types/PageInfo";
 
@@ -18,7 +18,7 @@ export default function ContactMe({ pageInfo }: Props) {
 
       <div className="flex flex-col space-y-5 px-5">
         <h4 className="text-lg text-white md:text-2xl font-semibold text-center">
-          I have got just what you need.{" "}
+          I have the perfect solution for you.{" "}
           <span className="decoration-[#38bdf8]/50 underline">Lets Talk</span>
         </h4>
 
