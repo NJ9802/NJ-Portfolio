@@ -12,33 +12,16 @@ export default function BackgroundCircles({}: Props) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
-          scale: [1, 2, 2, 3, 1],
-          opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.4],
-          borderRadius: ["20%", "20%", "20%", "50%", "80%", "100%"],
+          scale: [0.1, 0.4, 0.7, 1],
+          opacity: 0.4,
         }}
         transition={{ duration: 2.5 }}
-        className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[37rem] w-[37rem] mt-52 z-0"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{
-          scale: [1, 2, 2, 3, 1],
-          opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.4],
-          borderRadius: ["20%", "20%", "20%", "50%", "80%", "100%"],
-        }}
-        transition={{ duration: 2.5 }}
-        className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[56rem] w-[56rem] mt-52 z-0"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{
-          scale: [1, 2, 2, 3, 1],
-          opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.4],
-          borderRadius: ["20%", "20%", "20%", "50%", "80%", "100%"],
-        }}
-        transition={{ duration: 2.5 }}
-        className="absolute border border-[#38bdf8] rounded-full opacity-20 h-[75rem] w-[75rem] mt-52 z-0"
-      />
+        className="relative flex justify-center items-center"
+      >
+        <div className="absolute mt-52 border border-[#38bdf8] rounded-full opacity-20 h-[37rem] w-[37rem] z-0" />
+        <div className="absolute mt-52 border border-[#38bdf8] rounded-full opacity-20 h-[56rem] w-[56rem] z-0" />
+        <div className="absolute mt-52 border border-[#38bdf8] rounded-full opacity-20 h-[75rem] w-[75rem] z-0" />
+      </motion.div>
       <div className="absolute border border-[#333333] rounded-full  h-[32rem] w-[32rem] mt-52 z-0 animate-[ping_2s_linear_infinite]" />
       <Image
         priority
