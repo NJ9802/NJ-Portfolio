@@ -10,6 +10,7 @@ export const metadata = {
       demonstrating expertise in coding languages, debugging, project management, and leadership. 
       Dive into an engaging and interactive experience that highlights the value of quality over quantity,
        and reveals a unique approach to software development.`,
+  keywords: "Web Development, Software Engineer, Portfolio, Full Stack",
 };
 
 export const revalidate = 3600;
