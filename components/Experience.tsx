@@ -19,10 +19,10 @@ export default function Experience({ workExperiences }: Props) {
     >
       <SectionHeader title="Experience" />
 
-      {!workExperiences.length == false ? (
+      {workExperiences.length !== 0 ? (
         <div
           className={`w-full flex ${
-            workExperiences.length == 1 ? "justify-center" : ""
+            workExperiences.length === 1 ? "justify-center" : ""
           } space-x-5 overflow-x-scroll snap-mandatory snap-x 
       scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#38bdf8]/80`}
         >
