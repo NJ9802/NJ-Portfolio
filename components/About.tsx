@@ -36,7 +36,7 @@ const About = ({ pageInfo }: Props) => {
         <h4 className="text-2xl pl-0 md:pl-5 text-white md:text-4xl font-semibold">
           Who am I ?
         </h4>
-        <p className="text-base max-h-72 px-5 lg:max-h-none lg:pr-0 overflow-y-scroll">
+        <p className="text-base max-h-72 px-5 lg:max-h-none lg:pr-0 overflow-y-auto">
           {pageInfo.backgroundInformation}
         </p>
       </div>
