@@ -5,12 +5,14 @@ import BackgroundCircles from "./BackgroundCircles";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import PageInfo from "@/types/PageInfo";
 import Image from "next/image";
+import Experience from "@/types/Experience";
 
 type Props = {
   pageInfo: PageInfo;
+  workExperiences: Experience[];
 };
 
-export default function Hero({ pageInfo }: Props) {
+export default function Hero({ pageInfo, workExperiences }: Props) {
   const [text] = useTypewriter({
     words: [
       `Hi I'm ${pageInfo.name}`,
@@ -21,7 +23,13 @@ export default function Hero({ pageInfo }: Props) {
     delaySpeed: 2000,
   });
 
-  const sections = ["about", "experience", "skills", "projects"];
+  let sections;
+  if (workExperiences.length === 0) {
+    sections = ["about", "skills", "projects"];
+  } else {
+    sections = ["about", "experience", "skills", "projects"];
+  }
+
   return (
     <div className="h-screen pt-16 flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
       <BackgroundCircles />

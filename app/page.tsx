@@ -27,16 +27,18 @@ const Home = async () => {
     scroll-smooth"
     >
       <section id="hero" className="snap-center">
-        <Hero pageInfo={pageInfo} />
+        <Hero pageInfo={pageInfo} workExperiences={workExperiences} />
       </section>
 
       <section id="about" className="snap-center">
         <About pageInfo={pageInfo} />
       </section>
 
-      <section id="experience" className="snap-center">
-        <Experience workExperiences={workExperiences} content={content} />
-      </section>
+      {workExperiences.length !== 0 && (
+        <section id="experience" className="snap-center">
+          <Experience workExperiences={workExperiences} content={content} />
+        </section>
+      )}
 
       <section id="skills" className="snap-center">
         <Skills skills={skills} />
