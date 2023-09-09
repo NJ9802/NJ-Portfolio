@@ -25,7 +25,7 @@ export default function ContactMeForm({}: Props) {
       <div className="flex space-y-2 md:space-y-0 md:space-x-2 flex-col md:flex-row">
         <input
           {...register("name")}
-          placeholder="Name"
+          placeholder="Nombre"
           className="contactInput"
           type="text"
         />
@@ -39,14 +39,14 @@ export default function ContactMeForm({}: Props) {
 
       <input
         {...register("subject")}
-        placeholder="Subject"
+        placeholder="Asunto"
         className="contactInput"
         type="text"
       />
 
       <textarea
         {...register("message")}
-        placeholder="Message"
+        placeholder="Mensaje"
         className="contactInput"
       />
 
@@ -55,7 +55,7 @@ export default function ContactMeForm({}: Props) {
   text-lg"
         type="submit"
       >
-        Submit
+        Enviar
       </button>
     </form>
   );

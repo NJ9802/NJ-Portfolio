@@ -15,9 +15,9 @@ type Props = {
 export default function Hero({ pageInfo, workExperiences }: Props) {
   const [text] = useTypewriter({
     words: [
-      `Hi I'm ${pageInfo.name}`,
-      "I love Engineering!",
-      "Let's do great things!",
+      `Hola soy ${pageInfo.name}`,
+      "¡Me encanta la Ingeniería!",
+      "¡Hagamos grandes cosas!",
     ],
     loop: 0,
     delaySpeed: 2000,
@@ -25,9 +25,9 @@ export default function Hero({ pageInfo, workExperiences }: Props) {
 
   let sections;
   if (workExperiences.length === 0) {
-    sections = ["about", "skills", "projects"];
+    sections = ["sobre mí", "habilidades", "proyectos"];
   } else {
-    sections = ["about", "experience", "skills", "projects"];
+    sections = ["sobre mí", "experience", "habilidades", "proyectos"];
   }
 
   return (

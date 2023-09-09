@@ -14,12 +14,12 @@ export default function ContactMe({ pageInfo }: Props) {
       className="h-screen relative flex flex-col text-center md:text-left md:flex-row
      max-w-7xl px-10 justify-center mx-auto items-center"
     >
-      <SectionHeader title="Contact" />
+      <SectionHeader title="Contacto" />
 
       <div className="flex flex-col space-y-5 px-5">
         <h4 className="text-md text-white md:text-2xl font-semibold text-center">
-          I have the perfect solution for you.{" "}
-          <span className="decoration-[#38bdf8]/50 underline">Lets Talk</span>
+          Tengo la solución perfecta para usted.{" "}
+          <span className="decoration-[#38bdf8]/50 underline">Hablemos</span>
         </h4>
 
         <div className="space-y-1 ">

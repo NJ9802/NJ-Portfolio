@@ -18,7 +18,7 @@ const About = ({ pageInfo }: Props) => {
     md:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
     items-center"
     >
-      <SectionHeader title="About" />
+      <SectionHeader title="Sobre mí" />
 
       <motion.img
         loading="lazy"
@@ -34,7 +34,7 @@ const About = ({ pageInfo }: Props) => {
 
       <div className="space-y-5 px-0 md:px-10">
         <h4 className="text-2xl pl-0 md:pl-5 text-white md:text-4xl font-semibold">
-          Who am I ?
+          ¿Quién soy?
         </h4>
         <p className="text-base max-h-72 px-5 lg:max-h-none lg:pr-0 overflow-y-auto">
           {pageInfo.backgroundInformation}

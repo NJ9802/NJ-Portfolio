@@ -18,10 +18,10 @@ export default function Skills({ skills }: Props) {
       className="flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen
     justify-center xl:space-y-0 items-center mx-auto"
     >
-      <SectionHeader title="Skills" />
+      <SectionHeader title="Habilidades" />
 
-      <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
-        Hover over a skill for skill name
+      <h3 className="hidden lg:flex absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+        Coloca el cursor sobre una habilidad para el nombre de la habilidad{" "}
       </h3>
 
       <div className="grid grid-cols-4 gap-5">

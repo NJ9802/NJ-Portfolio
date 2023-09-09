@@ -30,7 +30,7 @@ const Home = async () => {
         <Hero pageInfo={pageInfo} workExperiences={workExperiences} />
       </section>
 
-      <section id="about" className="snap-center">
+      <section id="sobre mí" className="snap-center">
         <About pageInfo={pageInfo} />
       </section>
 
@@ -40,11 +40,11 @@ const Home = async () => {
         </section>
       )}
 
-      <section id="skills" className="snap-center">
+      <section id="habilidades" className="snap-center">
         <Skills skills={skills} />
       </section>
 
-      <section id="projects" className="snap-center">
+      <section id="proyectos" className="snap-center">
         <Projects projects={projects} />
       </section>
 
