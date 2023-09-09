@@ -37,7 +37,7 @@ function Project({ project, i, totalProjects }: Props) {
     <article
       key={project._id}
       className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5
-items-center justify-center p-10 md:p-44 h-screen"
+      items-center justify-center p-10 md:p-44 h-screen"
     >
       <motion.img
         initial={{ opacity: 0, y: -100 }}
@@ -47,19 +47,19 @@ items-center justify-center p-10 md:p-44 h-screen"
         alt={project.title}
         src={project.image}
         loading="lazy"
-        className="w-24 h-20 xl:w-48 xl:h-32 rounded-xl"
+        className="w-auto h-28 xl:w-60 xl:h-auto rounded-xl"
       />
       <div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         ref={cardEl}
         className="relative overflow-hidden h-fit space-y-4 px-0 md:px-10 max-w-6xl
-  bg-black/10 backdrop-blur-md rounded-lg p-5"
+      bg-black/10 backdrop-blur-md rounded-lg p-5 xl:min-w-[894px]"
       >
         <div className="flex justify-center items-center space-x-2">
           <h4 className="text-md  text-white xl:text-2xl font-semibold">
             <span className="underline decoration-[#38bdf8]/50">
-              Case Study {i + 1} of {totalProjects}:
+              Proyecto {i + 1} de {totalProjects}:
             </span>{" "}
             {project.title}
           </h4>
@@ -83,7 +83,7 @@ items-center justify-center p-10 md:p-44 h-screen"
           ))}
         </div>
         <div className="px-5">
-          <p className="text-xs md:text-sm text-center md:text-left">
+          <p className="text-xs md:text-sm whitespace-pre-line">
             {project.summary}
           </p>
         </div>
