@@ -42,7 +42,7 @@ export default function Header({ socials }: Props) {
         initial={{ x: 500, opacity: 0, scale: 0.5 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 1.5 }}
-        className="flex flex-row items-center text-gray-300"
+        className="flex flex-row items-center lg:gap-4 text-gray-300"
       >
         <SocialIcon
           url="#contact"
@@ -51,6 +51,13 @@ export default function Header({ socials }: Props) {
           fgColor="gray"
           bgColor="transparent"
         />
+
+        <a
+          className="text-lg text-[#808080] font-bold tracking-widest"
+          href="https://drive.google.com/file/d/1060ncXTVBp2RrE7dRqAZz0z6AizatbqF/view?usp=drive_link"
+        >
+          CV
+        </a>
       </motion.div>
     </header>
   );
