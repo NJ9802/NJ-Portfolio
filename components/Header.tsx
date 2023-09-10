@@ -54,7 +54,7 @@ export default function Header({ socials }: Props) {
 
         <a
           className="text-lg text-[#808080] font-bold tracking-widest"
-          href="https://drive.google.com/file/d/1060ncXTVBp2RrE7dRqAZz0z6AizatbqF/view?usp=drive_link"
+          href="/Nelson Front-End Developer CV.pdf"
         >
           CV
         </a>
