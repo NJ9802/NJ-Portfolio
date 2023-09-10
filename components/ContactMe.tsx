@@ -17,7 +17,7 @@ export default function ContactMe({ pageInfo }: Props) {
       <SectionHeader title="Contacto" />
 
       <div className="flex flex-col space-y-5 px-5">
-        <h4 className="text-md text-white md:text-2xl font-semibold text-center">
+        <h4 className="hidden xs:block text-md text-white md:text-2xl font-semibold text-center">
           Tengo la solución perfecta para usted.{" "}
           <span className="decoration-[#38bdf8]/50 underline">Hablemos</span>
         </h4>

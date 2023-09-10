@@ -28,7 +28,7 @@ const About = ({ pageInfo }: Props) => {
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
         alt={pageInfo.name}
-        className="mt-[4rem] mb-5 md:my-0 flex-shrink-0 w-32 h-32 rounded-full object-cover md:rounded-lg
+        className="hidden xs:block mt-[4rem] mb-5 md:my-0 flex-shrink-0 w-32 h-32 rounded-full object-cover md:rounded-lg
          md:w-64 md:h-96 xl:w-80 xl:h-96 "
       />
 

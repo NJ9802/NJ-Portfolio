@@ -47,7 +47,7 @@ function Project({ project, i, totalProjects }: Props) {
         alt={project.title}
         src={project.image}
         loading="lazy"
-        className="w-auto h-28 xl:w-60 xl:h-auto rounded-xl"
+        className="hidden xs:block w-auto h-28 xl:w-60 xl:h-auto rounded-xl"
       />
       <div
         onMouseMove={handleMouseMove}
