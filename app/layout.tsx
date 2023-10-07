@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import { getSocials } from "@/utils";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import ScrollContextProvider from "@/context/scrollContext";
 
 export const metadata = {
   title: "NJ Portfolio",
@@ -21,9 +22,11 @@ export default async function RootLayout({
   return (
     <html lang="es">
       <body className="bg-[#0f172a] text-[#94a3b8] overflow-hidden">
-        <Header socials={socials} />
-        <main>{children}</main>
-        <Footer />
+        <ScrollContextProvider>
+          <Header socials={socials} />
+          <main>{children}</main>
+          <Footer />
+        </ScrollContextProvider>
         <Analytics />
       </body>
     </html>
