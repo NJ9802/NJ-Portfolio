@@ -1,15 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { SocialIcon } from "react-social-icons";
-import { motion } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 import Social from "@/types/Social";
+import { ScrollContext } from "@/context/scrollContext";
 
 type Props = {
   socials: Social[];
 };
 
 export default function Header({ socials }: Props) {
+  const { scrollY } = useContext(ScrollContext);
+  const translateX = useSpring(scrollY);
+  const invertTranslateX = useTransform(translateX, () => -translateX.get());
+
   return (
     <header
       className="fixed w-full top-0 flex items-start px-5 md:px-[10rem] lg:px-[15rem] py-5 justify-between z-20
@@ -27,7 +32,8 @@ export default function Header({ socials }: Props) {
           scale: 1,
         }}
         transition={{ duration: 1.5 }}
-        className="flex flex-row items-center"
+        className={`flex flex-row items-center`}
+        style={{ translateX: invertTranslateX }}
       >
         {socials.map((social) => (
           <SocialIcon
@@ -43,6 +49,7 @@ export default function Header({ socials }: Props) {
         animate={{ x: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 1.5 }}
         className="flex flex-row items-center lg:gap-4 text-gray-300"
+        style={{ translateX }}
       >
         <SocialIcon
           url="#contact"

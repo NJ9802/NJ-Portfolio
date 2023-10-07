@@ -3,6 +3,7 @@ import ContactMe from "@/components/ContactMe";
 import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
+import ScrolleableDiv from "@/components/ScrolleableDiv";
 import Skills from "@/components/Skills";
 import {
   getPageInfo,
@@ -21,11 +22,7 @@ const Home = async () => {
   const { content } = await getWithoutExperience();
 
   return (
-    <div
-      id="mainDiv"
-      className="h-screen overflow-y-auto overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#38bdf8]/80 
-        scroll-smooth"
-    >
+    <ScrolleableDiv>
       <section id="hero">
         <Hero pageInfo={pageInfo} workExperiences={workExperiences} />
       </section>
@@ -51,7 +48,7 @@ const Home = async () => {
       <section id="contact">
         <ContactMe pageInfo={pageInfo} />
       </section>
-    </div>
+    </ScrolleableDiv>
   );
 };
 
