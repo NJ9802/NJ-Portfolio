@@ -23,33 +23,32 @@ const Home = async () => {
   return (
     <div
       id="mainDiv"
-      className="h-screen snap-mandatory snap-y overflow-y-scroll 
-    overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#38bdf8]/80 
-    scroll-smooth"
+      className="h-screen overflow-y-auto overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#38bdf8]/80 
+        scroll-smooth"
     >
-      <section id="hero" className="snap-center">
+      <section id="hero">
         <Hero pageInfo={pageInfo} workExperiences={workExperiences} />
       </section>
 
-      <section id="sobre mí" className="snap-center">
+      <section id="sobre mí">
         <About pageInfo={pageInfo} />
       </section>
 
       {workExperiences.length !== 0 && (
-        <section id="experience" className="snap-center">
+        <section id="experience">
           <Experience workExperiences={workExperiences} content={content} />
         </section>
       )}
 
-      <section id="habilidades" className="snap-center">
+      <section id="habilidades">
         <Skills skills={skills} />
       </section>
 
-      <section id="proyectos" className="snap-center">
+      <section id="proyectos">
         <Projects projects={projects} />
       </section>
 
-      <section id="contact" className="snap-center">
+      <section id="contact">
         <ContactMe pageInfo={pageInfo} />
       </section>
     </div>
