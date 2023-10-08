@@ -11,9 +11,10 @@ type Props = {
 const About = ({ pageInfo }: Props) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 300 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
       className="relative flex text-center md:text-left
     md:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
     items-center"

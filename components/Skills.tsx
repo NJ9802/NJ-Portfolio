@@ -12,9 +12,10 @@ type Props = {
 export default function Skills({ skills }: Props) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 300 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
       className="flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen
     justify-center xl:space-y-0 items-center mx-auto"
     >
