@@ -7,8 +7,8 @@ type Props = {};
 
 export default function BackgroundCircles({}: Props) {
   return (
-    <div className="relative flex justify-center items-center z-0">
-      <div className="absolute rounded-lg h-[33rem] w-[33rem] mt-[15rem] bg-black/10 backdrop-blur-md z-10" />
+    <div className="relative flex justify-center items-center z-0 pt-8">
+      <div className="absolute rounded-lg h-screen md:h-[33rem] w-[33rem] mt-[15rem] bg-black/10 backdrop-blur-md z-10" />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{

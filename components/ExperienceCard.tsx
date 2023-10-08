@@ -12,19 +12,28 @@ export default function ExperienceCard({ workExperience }: Props) {
     w-80 md:w-96 xl:w-2/4 snap-center bg-[#38bdf8]/10 p-10 hover:opacity-100 md:opacity-40
     cursor-pointer transition-opacity duration-200 overflow-hidden"
     >
-      <motion.img
+      <motion.div
         initial={{ y: -100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        src={workExperience.companyImage}
-        alt={workExperience.company}
-        className="w-16 h-16 rounded-full xl:w-23 xl:h-23 object-cover object-center"
-      />
+      >
+        <Image
+          src={workExperience.companyImage}
+          alt={workExperience.company}
+          className="w-16 h-16 rounded-full xl:w-23 xl:h-23 object-cover object-center"
+          width={250}
+          height={250}
+        />
+      </motion.div>
 
       <div className="px-0 md:px-10">
-        <h4 className="text-3xl text-white font-light">{workExperience.jobTitle}</h4>
-        <p className="font-bold text-white text-xl mt-1">{workExperience.company}</p>
+        <h4 className="text-3xl text-white font-light">
+          {workExperience.jobTitle}
+        </h4>
+        <p className="font-bold text-white text-xl mt-1">
+          {workExperience.company}
+        </p>
 
         <div className="flex space-x-2 my-2">
           {workExperience.technologies.map((technology) => (

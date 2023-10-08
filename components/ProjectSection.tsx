@@ -39,16 +39,20 @@ function Project({ project, i, totalProjects }: Props) {
       className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5
       items-center justify-center p-10 md:p-44 h-screen"
     >
-      <motion.img
+      <motion.div
         initial={{ opacity: 0, y: -100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        alt={project.title}
-        src={project.image}
-        loading="lazy"
-        className="hidden xs:block w-auto h-28 xl:w-60 xl:h-auto rounded-xl"
-      />
+      >
+        <Image
+          alt={project.title}
+          src={project.image}
+          className="hidden xs:block w-auto h-28 xl:w-60 xl:h-auto rounded-xl"
+          width={150}
+          height={150}
+        />
+      </motion.div>
       <div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}

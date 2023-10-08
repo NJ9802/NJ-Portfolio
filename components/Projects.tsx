@@ -60,8 +60,8 @@ export default function Projects({ projects }: Props) {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 300 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.5 }}
       viewport={{ once: true }}
       className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row
