@@ -31,7 +31,7 @@ export default function Hero({ pageInfo, workExperiences }: Props) {
   }
 
   return (
-    <div className="h-screen pt-16 flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+    <div className="h-screen pt-16 flex flex-col items-center justify-center text-center overflow-hidden">
       <BackgroundCircles />
       <Image
         priority
@@ -45,7 +45,7 @@ export default function Hero({ pageInfo, workExperiences }: Props) {
         <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] md:tracking-[15px]">
           {pageInfo.role}
         </h2>
-        <h1 className="text-2xl lg:text-4xl font-semibold px-10 text-white">
+        <h1 className="text-xl lg:text-4xl font-semibold px-10 text-white">
           <span className="mr-3">{text}</span>
           <Cursor cursorColor="#38bdf8" />
         </h1>
