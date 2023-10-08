@@ -1,8 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import SectionHeader from "./SectionHeader";
+import Image from "next/image";
+
 import PageInfo from "@/types/PageInfo";
+
+import SectionHeader from "./SectionHeader";
 
 type Props = {
   pageInfo: PageInfo;
@@ -21,17 +24,22 @@ const About = ({ pageInfo }: Props) => {
     >
       <SectionHeader title="Sobre mí" />
 
-      <motion.img
-        loading="lazy"
-        src={pageInfo.profilePic}
+      <motion.div
         initial={{ x: -100, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
-        alt={pageInfo.name}
-        className="hidden xs:block mt-[4rem] mb-5 md:my-0 flex-shrink-0 w-32 h-32 rounded-full object-cover md:rounded-lg
-         md:w-64 md:h-96 xl:w-80 xl:h-96 "
-      />
+        className="hidden flex-shrink-0 xs:block mt-[4rem] mb-5 md:my-0 w-32 h-32 rounded-full md:rounded-lg
+        md:w-80 md:h-80 xl:w-96 xl:h-96"
+      >
+        <Image
+          src={pageInfo.profilePic}
+          alt={pageInfo.name}
+          width={5000}
+          height={5000}
+          className="h-full"
+        />
+      </motion.div>
 
       <div className="space-y-5 px-0 md:px-10">
         <h4 className="text-2xl pl-0 md:pl-5 text-white md:text-4xl font-semibold">
