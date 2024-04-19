@@ -9,7 +9,7 @@ export default function ExperienceCard({ workExperience }: Props) {
   return (
     <article
       className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0
-    w-80 md:w-96 xl:w-2/4 snap-center bg-[#38bdf8]/10 p-10 hover:opacity-100 md:opacity-40
+    w-80 md:w-96 xl:w-2/4 bg-[#38bdf8]/10 p-10 hover:opacity-100 md:opacity-40
     cursor-pointer transition-opacity duration-200 overflow-hidden"
     >
       <motion.div
@@ -21,7 +21,7 @@ export default function ExperienceCard({ workExperience }: Props) {
         <Image
           src={workExperience.companyImage}
           alt={workExperience.company}
-          className="w-16 h-16 rounded-full xl:w-23 xl:h-23 object-cover object-center"
+          className="max-w-md h-auto xl:w-23 xl:h-23 object-cover object-center"
           width={250}
           height={250}
         />
@@ -50,14 +50,14 @@ export default function ExperienceCard({ workExperience }: Props) {
 
         <p className="uppercase text-xs py-2 text-gray-300">{`${new Date(
           workExperience.dateStarted
-        ).toDateString()} - ${
+        ).toLocaleDateString('es')} - ${
           workExperience.isCurrentlyWorkingHere
-            ? "PRESENT"
-            : new Date(workExperience.dateEnded).toDateString()
+            ? "PRESENTE"
+            : new Date(workExperience.dateEnded).toLocaleDateString('es')
         }`}</p>
 
         <ul
-          className="ml-5 text-sm text-white max-h-48 md:max-h-24 w-64 pr-5 overflow-y-scroll 
+          className="text-sm text-white max-h-48 md:max-h-28 w-64 pr-5 overflow-y-auto 
         md:scrollbar-thin md:scrollbar-track-black/10 md:scrollbar-thumb-[#38bdf8]"
         >
           {workExperience.points.map((point, i) => (
