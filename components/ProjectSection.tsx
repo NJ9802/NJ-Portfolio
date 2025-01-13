@@ -1,4 +1,4 @@
-import Project from "@/types/Project";
+import type Project from "@/types/Project";
 import React from "react";
 import Image from "next/image";
 import { CodeBracketIcon } from "@heroicons/react/24/outline";
@@ -92,20 +92,22 @@ function Project({ project, i, totalProjects }: Props) {
           </p>
         </div>
         <div className="absolute top-1 right-2 flex">
-          <a
-            className="projectLink group"
-            href={project.linkToBuild}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="flex w-full space-x-1 items-center justify-center">
-              <CodeBracketIcon
-                className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
+          {project.linkToBuild && (
+            <a
+              className="projectLink group"
+              href={project.linkToBuild}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="flex w-full space-x-1 items-center justify-center">
+                <CodeBracketIcon
+                  className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
           transition-all duration-500"
-              />
-              <p>Code</p>
-            </div>
-          </a>
+                />
+                <p>Code</p>
+              </div>
+            </a>
+          )}
 
           <a
             className="projectLink group"

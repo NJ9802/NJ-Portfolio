@@ -9,8 +9,7 @@ export default function ExperienceCard({ workExperience }: Props) {
   return (
     <article
       className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0
-    w-80 md:w-96 xl:w-2/4 bg-[#38bdf8]/10 p-10 hover:opacity-100 md:opacity-40
-    cursor-pointer transition-opacity duration-200 overflow-hidden"
+    w-80 md:w-96 xl:w-2/4 bg-[#38bdf8]/10 p-10 overflow-hidden"
     >
       <motion.div
         initial={{ y: -100, opacity: 0 }}
