@@ -1,4 +1,4 @@
-import type Project from "@/types/Project";
+import type Project from "../types/Project";
 import React from "react";
 import Image from "next/image";
 import { CodeBracketIcon } from "@heroicons/react/24/outline";
@@ -8,6 +8,7 @@ import { useMouse } from "@mantine/hooks";
 import { useElementSize } from "@mantine/hooks";
 import { useState } from "react";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
 
 type Props = {
   project: Project;
@@ -15,7 +16,8 @@ type Props = {
   totalProjects: number;
 };
 
-function Project({ project, i, totalProjects }: Props) {
+function Project({ project, i, totalProjects: total }: Props) {
+  const t = useTranslations("Projects");
   const { ref: circleEl, width, height } = useElementSize();
   const { ref: cardEl, x, y } = useMouse();
   const [position, setPosition] = useState({ left: -1000, top: -1000 });
@@ -44,6 +46,7 @@ function Project({ project, i, totalProjects }: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         viewport={{ once: true }}
+        className="mb-8"
       >
         <Image
           alt={project.title}
@@ -63,7 +66,7 @@ function Project({ project, i, totalProjects }: Props) {
         <div className="flex justify-center items-center space-x-2">
           <h4 className="text-md  text-white xl:text-2xl font-semibold">
             <span className="underline decoration-[#38bdf8]/50">
-              Proyecto {i + 1} de {totalProjects}:
+              {t("projectCount", { count: i + 1, total })}
             </span>{" "}
             {project.title}
           </h4>
@@ -104,7 +107,7 @@ function Project({ project, i, totalProjects }: Props) {
                   className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
           transition-all duration-500"
                 />
-                <p>Code</p>
+                <p>{t("code")}</p>
               </div>
             </a>
           )}
@@ -120,7 +123,7 @@ function Project({ project, i, totalProjects }: Props) {
                 className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
           transition-all duration-500"
               />
-              <p>Live</p>
+              <p>{t("demo")}</p>
             </div>
           </a>
         </div>

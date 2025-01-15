@@ -1,14 +1,14 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import type Experience from "../types/Experience";
 import ExperienceCard from "./ExperienceCard";
 import SectionHeader from "./SectionHeader";
-import Experience from "@/types/Experience";
-import WithoutExperience from "./WithoutExperience";
 
-type Props = { workExperiences: Experience[]; content: string };
+type Props = { workExperiences: Experience[] };
 
-export default function Experience({ workExperiences, content }: Props) {
+export default function Experience({ workExperiences }: Props) {
+  const t = useTranslations("Experience");
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,25 +17,21 @@ export default function Experience({ workExperiences, content }: Props) {
       className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full md:px-10
     justify-evenly mx-auto items-center"
     >
-      <SectionHeader title="Experiencia" />
+      <SectionHeader title={t("title")} />
 
-      {workExperiences.length !== 0 ? (
-        <div
-          className={`w-full flex ${
-            workExperiences.length === 1 ? "justify-center" : ""
-          } space-x-5 overflow-x-auto pb-4 snap-mandatory snap-x 
+      <div
+        className={`w-full flex ${
+          workExperiences.length === 1 ? "justify-center" : ""
+        } space-x-5 overflow-x-auto pb-4 snap-mandatory snap-x 
       scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#38bdf8]/80`}
-        >
-          {workExperiences.map((workExperience) => (
-            <ExperienceCard
-              key={workExperience._id}
-              workExperience={workExperience}
-            />
-          ))}
-        </div>
-      ) : (
-        <WithoutExperience content={content} />
-      )}
+      >
+        {workExperiences.map((workExperience) => (
+          <ExperienceCard
+            key={workExperience._id}
+            workExperience={workExperience}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 }

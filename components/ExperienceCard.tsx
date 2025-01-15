@@ -1,11 +1,15 @@
-import Experience from "@/types/Experience";
+import Experience from "../types/Experience";
 import { motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
 type Props = { workExperience: Experience };
 
 export default function ExperienceCard({ workExperience }: Props) {
+  const locale = useLocale();
+  const t = useTranslations("Experience");
+
   return (
     <article
       className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0
@@ -49,10 +53,10 @@ export default function ExperienceCard({ workExperience }: Props) {
 
         <p className="uppercase text-xs py-2 text-gray-300">{`${new Date(
           workExperience.dateStarted
-        ).toLocaleDateString('es')} - ${
+        ).toLocaleDateString(locale)} - ${
           workExperience.isCurrentlyWorkingHere
-            ? "PRESENTE"
-            : new Date(workExperience.dateEnded).toLocaleDateString('es')
+            ? t("present")
+            : new Date(workExperience.dateEnded).toLocaleDateString(locale)
         }`}</p>
 
         <ul

@@ -1,0 +1,55 @@
+{
+  "Metadata": {
+    "title": "NJ Portfolio",
+    "description": "Discover the cutting-edge software engineering portfolio of a dedicated professional, showcasing a diverse range of projects and technical skills. Explore our creative solutions to complex problems, demonstrating expertise in coding languages, debugging, project management, and leadership. Dive into an engaging and interactive experience that highlights the value of quality over quantity, and reveals a unique approach to software development.",
+    "keywords": "Web Development, Software Engineer, Portfolio, Full Stack"
+  },
+  "HeroSection": {
+    "role": "Front End Developer",
+    "typeWritter": {
+      "name": "Hi, my name is { name }!",
+      "preferences": "I love Engineering!",
+      "actions": "Let's do great things!"
+    },
+    "sections": {
+      "about": "About me",
+      "experience": "Experience",
+      "skills": "Skills",
+      "projects": "Projects"
+    }
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, es {Spanish} en {English} other {Unknown}}"
+  },
+  "About": {
+    "title": "About me",
+    "whoiam": "Who am I?"
+  },
+  "Experience": {
+    "title": "Experience",
+    "present": "Present"
+  },
+  "Projects": {
+    "title": "Projects",
+    "projectCount": "Project {count} of {total}:",
+    "demo": "demo",
+    "code": "code"
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "I have the perfect solution for you.",
+    "letsTalk": " Let's talk.",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "send": "Send"
+  },
+  "Skills": {
+    "title": "Skills",
+    "subtitle": "Hover over a skill to see the skill name"
+  }
+}

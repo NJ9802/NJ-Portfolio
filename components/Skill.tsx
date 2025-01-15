@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Skill from "@/types/Skill";
+import type Skill from "../types/Skill";
 import Image from "next/image";
 
 type Props = {
