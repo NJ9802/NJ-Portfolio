@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -12,6 +13,7 @@ type Inputs = {
 };
 
 export default function ContactMeForm({}: Props) {
+  const t = useTranslations("Contact");
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) =>
     (window.location.href = `mailto:nelson.javier.aldazabal@gmail.com?subject=${formData.subject}
@@ -25,13 +27,13 @@ export default function ContactMeForm({}: Props) {
       <div className="flex space-y-2 md:space-y-0 md:space-x-2 flex-col md:flex-row">
         <input
           {...register("name")}
-          placeholder="Nombre"
+          placeholder={t("fields.name")}
           className="contactInput"
           type="text"
         />
         <input
           {...register("email")}
-          placeholder="Email"
+          placeholder={t("fields.email")}
           className="contactInput"
           type="email"
         />
@@ -39,14 +41,14 @@ export default function ContactMeForm({}: Props) {
 
       <input
         {...register("subject")}
-        placeholder="Asunto"
+        placeholder={t("fields.subject")}
         className="contactInput"
         type="text"
       />
 
       <textarea
         {...register("message")}
-        placeholder="Mensaje"
+        placeholder={t("fields.message")}
         className="contactInput"
       />
 
@@ -55,7 +57,7 @@ export default function ContactMeForm({}: Props) {
   text-lg"
         type="submit"
       >
-        Enviar
+        {t("send")}
       </button>
     </form>
   );

@@ -1,34 +1,27 @@
 "use client";
 
-import React from "react";
-import BackgroundCircles from "./BackgroundCircles";
-import { Cursor, useTypewriter } from "react-simple-typewriter";
-import PageInfo from "@/types/PageInfo";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Experience from "@/types/Experience";
+import { Cursor, useTypewriter } from "react-simple-typewriter";
+import { sections } from "../constants";
+import PageInfo from "../types/PageInfo";
+import BackgroundCircles from "./BackgroundCircles";
 
 type Props = {
   pageInfo: PageInfo;
-  workExperiences: Experience[];
 };
 
-export default function Hero({ pageInfo, workExperiences }: Props) {
+export default function Hero({ pageInfo }: Props) {
+  const t = useTranslations("HeroSection");
   const [text] = useTypewriter({
     words: [
-      `Hola soy ${pageInfo.name}`,
-      "¡Me encanta la Ingeniería!",
-      "¡Hagamos grandes cosas!",
+      t("typeWritter.name", { name: pageInfo.name }),
+      t("typeWritter.preferences"),
+      t("typeWritter.actions"),
     ],
     loop: 0,
     delaySpeed: 2000,
   });
-
-  let sections;
-  if (workExperiences.length === 0) {
-    sections = ["sobre mí", "habilidades", "proyectos"];
-  } else {
-    sections = ["sobre mí", "experience", "habilidades", "proyectos"];
-  }
 
   return (
     <div className="h-screen pt-16 flex flex-col items-center justify-center text-center overflow-hidden">
@@ -49,7 +42,7 @@ export default function Hero({ pageInfo, workExperiences }: Props) {
           <span className="mr-3">{text}</span>
           <Cursor cursorColor="#38bdf8" />
         </h1>
-        <nav className="pt-4">
+        <nav className="pt-4 max-w-[38rem]">
           {sections.map((section) => (
             <a key={section} href={`#${section}`}>
               <button
@@ -57,7 +50,7 @@ export default function Hero({ pageInfo, workExperiences }: Props) {
                 tracking-widest text-gray-500 shadow-md transition-all duration-700 hover:border-[#38bdf8]/40
                hover:text-[#38bdf8]/40 bg-black/20"
               >
-                {section}
+                {t(`sections.${section}`)}
               </button>
             </a>
           ))}

@@ -1,11 +1,11 @@
-import { clientFetch } from "@/sanity-utils";
-import Experience from "@/types/Experience";
-import PageInfo from "@/types/PageInfo";
-import Social from "@/types/Social";
-import Skill from "@/types/Skill";
+import Experience from "../types/Experience";
+import PageInfo from "../types/PageInfo";
+import Social from "../types/Social";
+import Skill from "../types/Skill";
 import { groq } from "next-sanity";
-import Project from "@/types/Project";
-import WithoutExperience from "@/types/WithoutExperience";
+import Project from "../types/Project";
+import WithoutExperience from "../types/WithoutExperience";
+import { clientFetch } from "../sanity-utils";
 
 export const getSocials = async (): Promise<Social[]> => {
   return clientFetch(groq`

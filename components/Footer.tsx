@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
-import { ScrollContext } from "@/context/scrollContext";
+import { ScrollContext } from "../context/scrollContext";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 
 type Props = {};

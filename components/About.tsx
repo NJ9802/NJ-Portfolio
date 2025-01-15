@@ -3,26 +3,25 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import PageInfo from "@/types/PageInfo";
+import PageInfo from "../types/PageInfo";
 
 import SectionHeader from "./SectionHeader";
+import { useTranslations } from "next-intl";
 
 type Props = {
   pageInfo: PageInfo;
 };
 
 const About = ({ pageInfo }: Props) => {
+  const t = useTranslations("About");
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 300 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
-      viewport={{ once: true }}
+    <div
       className="relative flex text-center md:text-left
     md:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
     items-center"
     >
-      <SectionHeader title="Sobre mí" />
+      <SectionHeader title={t("title")} />
 
       <motion.div
         initial={{ x: -100, opacity: 0 }}
@@ -43,13 +42,13 @@ const About = ({ pageInfo }: Props) => {
 
       <div className="space-y-5 px-0 md:px-10">
         <h4 className="text-2xl pl-0 md:pl-5 text-white md:text-4xl font-semibold">
-          ¿Quién soy?
+          {t("whoiam")}
         </h4>
         <p className="px-5 lg:pr-0 overflow-y-auto">
           {pageInfo.backgroundInformation}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,17 +1,16 @@
-import About from "@/components/About";
-import ContactMe from "@/components/ContactMe";
-import Experience from "@/components/Experience";
-import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import ScrolleableDiv from "@/components/ScrolleableDiv";
-import Skills from "@/components/Skills";
+import About from "../../components/About";
+import ContactMe from "../../components/ContactMe";
+import Experience from "../../components/Experience";
+import Hero from "../../components/Hero";
+import Projects from "../../components/Projects";
+import ScrolleableDiv from "../../components/ScrolleableDiv";
+import Skills from "../../components/Skills";
 import {
   getPageInfo,
   getProjects,
   getSkills,
-  getWithoutExperience,
   getWorkExperience,
-} from "@/utils";
+} from "../../utils";
 import React from "react";
 
 const Home = async () => {
@@ -19,29 +18,28 @@ const Home = async () => {
   const workExperiences = await getWorkExperience();
   const skills = await getSkills();
   const projects = await getProjects();
-  const { content } = await getWithoutExperience();
 
   return (
     <ScrolleableDiv>
       <section id="hero">
-        <Hero pageInfo={pageInfo} workExperiences={workExperiences} />
+        <Hero pageInfo={pageInfo} />
       </section>
 
-      <section id="sobre mí">
+      <section id="about">
         <About pageInfo={pageInfo} />
       </section>
 
       {workExperiences.length !== 0 && (
         <section id="experience">
-          <Experience workExperiences={workExperiences} content={content} />
+          <Experience workExperiences={workExperiences} />
         </section>
       )}
 
-      <section id="habilidades">
+      <section id="skills">
         <Skills skills={skills} />
       </section>
 
-      <section id="proyectos">
+      <section id="projects">
         <Projects projects={projects} />
       </section>
 

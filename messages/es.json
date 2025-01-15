@@ -1,0 +1,55 @@
+{
+    "Metadata": {
+    "title": "Portafolio de NJ",
+    "description": "Descubra el portafolio de ingeniería de software de vanguardia de un profesional dedicado, que muestra una amplia gama de proyectos y habilidades técnicas. Explore nuestras soluciones creativas para problemas complejos, demostrando experiencia en lenguajes de codificación, depuración, gestión de proyectos y liderazgo. Sumérjase en una experiencia atractiva e interactiva que resalta el valor de la calidad sobre la cantidad y revela un enfoque único para el desarrollo de software.",
+    "keywords": "Desarrollo web, Ingeniero de software, Portafolio, Pila completa"
+    },
+    "HeroSection": {
+    "role": "Desarrollador de front-end",
+    "typeWritter": {
+    "name": "Hola, soy { name }",
+    "preferences": "¡Me encanta la ingeniería!",
+    "actions": "¡Hagamos grandes cosas!"
+    },
+    "sections": {
+    "about": "Acerca de mí",
+    "experience": "Experiencia",
+    "skills": "Habilidades",
+    "projects": "Proyectos"
+    }
+    },
+    "LocaleSwitcher": {
+    "label": "Cambiar idioma",
+    "locale": "{locale, select, es {Español} en {Inglés} other {Desconocido}}"
+    },
+    "About": {
+    "title": "Acerca de mí",
+    "whoiam": "¿Quién soy?"
+    },
+    "Experience": {
+    "title": "Experiencia",
+    "present": "Presente"
+    },
+    "Projects": {
+    "title": "Proyectos",
+    "projectCount": "Proyecto {count} de {total}:",
+    "demo": "demo",
+    "code": "código"
+    },
+    "Contact": {
+    "title": "Contacto",
+    "subtitle": "Tengo la solución perfecta para ti.",
+    "letsTalk": "Hablemos.",
+    "fields": {
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "subject": "Asunto",
+    "message": "Mensaje"
+    },
+    "send": "Enviar"
+    },
+    "Skills": {
+    "title": "Habilidades",
+    "subtitle": "Pase el cursor sobre una habilidad para ver el nombre de la habilidad"
+    }
+    }

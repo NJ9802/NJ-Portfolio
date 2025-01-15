@@ -1,6 +1,6 @@
 "use client";
 
-import { ScrollContext } from "@/context/scrollContext";
+import { ScrollContext } from "../context/scrollContext";
 import React, { useContext } from "react";
 
 interface ScrolleableDivProps {
