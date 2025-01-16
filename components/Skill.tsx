@@ -36,7 +36,7 @@ export default function Skill({ skill, directionUp }: Props) {
       ease-in-out group-hover:bg-white w-16 h-16 md:w-18 md:h-18 xl:w-18 xl:h-18 rounded-full z-0"
       >
         <div className="flex items-center justify-center h-full">
-          <p className="text-xs md:text-md font-bold text-black opacity-100">
+          <p className="text-xs md:text-md font-bold text-black opacity-100 text-center">
             {skill.title}
           </p>
         </div>
