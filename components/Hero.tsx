@@ -36,7 +36,7 @@ export default function Hero({ pageInfo }: Props) {
         height={140}
       />
       <div className="z-20 pt-8">
-        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] md:tracking-[15px]">
+        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] font-semibold">
           {pageInfo.role[locale]}
         </h2>
         <h1 className="text-xl lg:text-4xl font-semibold px-10 text-white">
