@@ -1,4 +1,4 @@
-import SanityBody from "./SanityBody";
+import SanityBody, { LocaleString } from "./SanityBody";
 import Technology from "./Technology";
 
 export default interface Project extends SanityBody {
@@ -6,6 +6,6 @@ export default interface Project extends SanityBody {
   image: string;
   linkToBuild: string;
   linkToDemo: string;
-  summary: string;
+  summary: LocaleString;
   technologies: Technology[];
 }

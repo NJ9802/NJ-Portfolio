@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { sections } from "../constants";
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export default function Hero({ pageInfo }: Props) {
+  const locale = useLocale();
   const t = useTranslations("HeroSection");
   const [text] = useTypewriter({
     words: [
@@ -35,8 +36,8 @@ export default function Hero({ pageInfo }: Props) {
         height={140}
       />
       <div className="z-20 pt-8">
-        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] md:tracking-[15px]">
-          {pageInfo.role}
+        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] font-semibold">
+          {pageInfo.role[locale]}
         </h2>
         <h1 className="text-xl lg:text-4xl font-semibold px-10 text-white">
           <span className="mr-3">{text}</span>
