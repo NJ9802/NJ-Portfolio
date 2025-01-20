@@ -1,4 +1,4 @@
-import SanityBody from "./SanityBody";
+import SanityBody, { LocaleString } from "./SanityBody";
 import Technology from "./Technology";
 
 export default interface Experience extends SanityBody {
@@ -9,6 +9,6 @@ export default interface Experience extends SanityBody {
   dateEnded: Date;
   isCurrentlyWorkingHere: boolean;
   jobTitle: string;
-  points: { [key: string]: string }[];
+  points: LocaleString[];
   technologies: Technology[];
 }
