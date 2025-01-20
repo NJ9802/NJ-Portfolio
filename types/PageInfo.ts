@@ -4,7 +4,7 @@ export default interface PageInfo extends SanityBody {
   _type: "pageInfo";
   backgroundInformation: string;
   email: string;
-  role: string;
+  role: { [key: string]: string };
   heroImage: string;
   name: string;
   phoneNumber: string;

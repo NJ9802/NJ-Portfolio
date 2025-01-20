@@ -9,6 +9,6 @@ export default interface Experience extends SanityBody {
   dateEnded: Date;
   isCurrentlyWorkingHere: boolean;
   jobTitle: string;
-  points: string[];
+  points: { [key: string]: string }[];
   technologies: Technology[];
 }

@@ -6,6 +6,6 @@ export default interface Project extends SanityBody {
   image: string;
   linkToBuild: string;
   linkToDemo: string;
-  summary: string;
+  summary: { [key: string]: string };
   technologies: Technology[];
 }
