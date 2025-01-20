@@ -8,7 +8,7 @@ import { useMouse } from "@mantine/hooks";
 import { useElementSize } from "@mantine/hooks";
 import { useState } from "react";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 type Props = {
   project: Project;
@@ -17,6 +17,7 @@ type Props = {
 };
 
 function Project({ project, i, totalProjects: total }: Props) {
+  const locale = useLocale()
   const t = useTranslations("Projects");
   const { ref: circleEl, width, height } = useElementSize();
   const { ref: cardEl, x, y } = useMouse();
@@ -91,7 +92,7 @@ function Project({ project, i, totalProjects: total }: Props) {
         </div>
         <div className="px-5">
           <p className="text-xs md:text-sm whitespace-pre-line">
-            {project.summary}
+            {project.summary[locale]}
           </p>
         </div>
         <div className="absolute top-1 right-2 flex">

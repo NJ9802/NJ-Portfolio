@@ -6,13 +6,14 @@ import Image from "next/image";
 import PageInfo from "../types/PageInfo";
 
 import SectionHeader from "./SectionHeader";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 type Props = {
   pageInfo: PageInfo;
 };
 
 const About = ({ pageInfo }: Props) => {
+  const locale = useLocale();
   const t = useTranslations("About");
 
   return (
@@ -45,7 +46,7 @@ const About = ({ pageInfo }: Props) => {
           {t("whoiam")}
         </h4>
         <p className="px-5 lg:pr-0 overflow-y-auto">
-          {pageInfo.backgroundInformation}
+          {pageInfo.backgroundInformation[locale]}
         </p>
       </div>
     </div>

@@ -64,7 +64,7 @@ export default function ExperienceCard({ workExperience }: Props) {
         md:scrollbar-thin md:scrollbar-track-black/10 md:scrollbar-thumb-[#38bdf8]"
         >
           {workExperience.points.map((point, i) => (
-            <li key={i}>- {point}</li>
+            <li key={i}>- {point[locale]}</li>
           ))}
         </ul>
       </div>
