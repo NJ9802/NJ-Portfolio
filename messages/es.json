@@ -1,55 +1,61 @@
 {
-    "Metadata": {
+  "Metadata": {
     "title": "Portafolio de NJ",
     "description": "Descubra el portafolio de ingeniería de software de vanguardia de un profesional dedicado, que muestra una amplia gama de proyectos y habilidades técnicas. Explore nuestras soluciones creativas para problemas complejos, demostrando experiencia en lenguajes de codificación, depuración, gestión de proyectos y liderazgo. Sumérjase en una experiencia atractiva e interactiva que resalta el valor de la calidad sobre la cantidad y revela un enfoque único para el desarrollo de software.",
     "keywords": "Desarrollo web, Ingeniero de software, Portafolio, Pila completa"
-    },
-    "HeroSection": {
+  },
+  "HeroSection": {
     "role": "Desarrollador de front-end",
     "typeWritter": {
-    "name": "Hola, soy { name }",
-    "preferences": "¡Me encanta la ingeniería!",
-    "actions": "¡Hagamos grandes cosas!"
+      "name": "Hola, soy { name }",
+      "preferences": "¡Me encanta la ingeniería!",
+      "actions": "¡Hagamos grandes cosas!"
     },
     "sections": {
-    "about": "Acerca de mí",
-    "experience": "Experiencia",
-    "skills": "Habilidades",
-    "projects": "Proyectos"
+      "about": "Acerca de mí",
+      "experience": "Experiencia",
+      "skills": "Habilidades",
+      "projects": "Proyectos"
     }
-    },
-    "LocaleSwitcher": {
+  },
+  "LocaleSwitcher": {
     "label": "Cambiar idioma",
     "locale": "{locale, select, es {Español} en {Inglés} other {Desconocido}}"
-    },
-    "About": {
+  },
+  "About": {
     "title": "Acerca de mí",
     "whoiam": "¿Quién soy?"
-    },
-    "Experience": {
+  },
+  "Experience": {
     "title": "Experiencia",
     "present": "Presente"
-    },
-    "Projects": {
+  },
+  "Projects": {
     "title": "Proyectos",
     "projectCount": "Proyecto {count} de {total}:",
     "demo": "demo",
     "code": "código"
-    },
-    "Contact": {
+  },
+  "Contact": {
     "title": "Contacto",
     "subtitle": "Tengo la solución perfecta para ti.",
     "letsTalk": "Hablemos.",
     "fields": {
-    "name": "Nombre",
-    "email": "Correo electrónico",
-    "subject": "Asunto",
-    "message": "Mensaje"
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje"
     },
     "send": "Enviar"
-    },
-    "Skills": {
+  },
+  "Skills": {
     "title": "Habilidades",
     "subtitle": "Pase el cursor sobre una habilidad para ver el nombre de la habilidad"
-    }
-    }
+  },
+  "Chatbot": {
+    "errorMessage": "Parece que ha ocurrido algún error, inténtelo de nuevo más tarde...",
+    "title": "Asistente del portafolio de Nelson",
+    "inputPlaceholder": "Escribe tu pregunta...",
+    "introduction": "Hola soy el Asistente del portafolio de Nelson, ¿en qué te puedo ayudar?"
+  }
+}
