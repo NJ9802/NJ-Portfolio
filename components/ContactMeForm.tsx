@@ -53,7 +53,7 @@ export default function ContactMeForm({}: Props) {
       />
 
       <button
-        className="bg-[#38bdf8] py-5 px-6 rounded-md text-black font-bold
+        className="bg-accent py-5 px-6 rounded-md text-black font-bold
   text-lg"
         type="submit"
       >

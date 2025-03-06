@@ -13,7 +13,7 @@ export default function ExperienceCard({ workExperience }: Props) {
   return (
     <article
       className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0
-    w-80 md:w-96 xl:w-2/4 bg-[#38bdf8]/10 p-10 overflow-hidden"
+    w-80 md:w-96 xl:w-2/4 bg-accent/10 p-10 overflow-hidden"
     >
       <motion.div
         initial={{ y: -100, opacity: 0 }}
@@ -61,7 +61,7 @@ export default function ExperienceCard({ workExperience }: Props) {
 
         <ul
           className="text-sm text-white max-h-48 md:max-h-28 w-64 pr-5 overflow-y-auto 
-        md:scrollbar-thin md:scrollbar-track-black/10 md:scrollbar-thumb-[#38bdf8]"
+        md:scrollbar-thin md:scrollbar-track-black/10 md:scrollbar-thumb-accent"
         >
           {workExperience.points.map((point, i) => (
             <li key={i}>- {point[locale]}</li>

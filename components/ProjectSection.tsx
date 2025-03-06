@@ -66,7 +66,7 @@ function Project({ project, i, totalProjects: total }: Props) {
       >
         <div className="flex justify-center items-center space-x-2">
           <h4 className="text-md  text-white xl:text-2xl font-semibold">
-            <span className="underline decoration-[#38bdf8]/50">
+            <span className="underline decoration-accent/50">
               {t("projectCount", { count: i + 1, total })}
             </span>{" "}
             {project.title}
@@ -105,7 +105,7 @@ function Project({ project, i, totalProjects: total }: Props) {
             >
               <div className="flex w-full space-x-1 items-center justify-center">
                 <CodeBracketIcon
-                  className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
+                  className="group-hover:text-accent h-4 w-4 text-gray-500 
           transition-all duration-500"
                 />
                 <p>{t("code")}</p>
@@ -121,7 +121,7 @@ function Project({ project, i, totalProjects: total }: Props) {
           >
             <div className="flex w-full space-x-1 items-center justify-center">
               <ArrowTopRightOnSquareIcon
-                className="group-hover:text-[#38bdf8] h-4 w-4 text-gray-500 
+                className="group-hover:text-accent h-4 w-4 text-gray-500 
           transition-all duration-500"
               />
               <p>{t("demo")}</p>
@@ -136,7 +136,7 @@ function Project({ project, i, totalProjects: total }: Props) {
             opacity,
           }}
           ref={circleEl}
-          className="bg-[#38bdf8] absolute scale-[1.5] blur-3xl w-20
+          className="bg-accent absolute scale-[1.5] blur-3xl w-20
     h-20 rounded-full -z-10 transition-opacity duration-300 hidden md:block"
         ></div>
       </div>

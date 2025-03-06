@@ -13,7 +13,7 @@ const ScrolleableDiv: React.FC<ScrolleableDivProps> = ({ children }) => {
     <div
       ref={scrollRef}
       id="mainDiv"
-      className="h-screen overflow-y-auto overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-[#38bdf8]/80 
+      className="h-screen overflow-y-auto overflow-x-hidden md:scrollbar-thin md:scrollbar-track-gray-400/20 md:scrollbar-thumb-accent/80 
     scroll-smooth"
     >
       {children}
