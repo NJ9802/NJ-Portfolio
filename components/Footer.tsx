@@ -17,12 +17,11 @@ export default function Footer({}: Props) {
       style={{ translateY: y }}
       className="fixed bottom-5 w-full px-10"
     >
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-start">
         <a href="#hero">
-          <ArrowUpIcon
-            className="h-6 w-6 opacity-20 rounded-full
-        hover:opacity-80 hover:animate-bounce transition"
-          />
+          <div className="group p-3">
+            <ArrowUpIcon className="h-8 w-8 opacity-40 group-hover:opacity-80 group-hover:animate-bounce transition" />
+          </div>
         </a>
       </div>
     </motion.footer>
