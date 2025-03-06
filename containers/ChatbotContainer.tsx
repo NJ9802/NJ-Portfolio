@@ -4,6 +4,7 @@ import { useChatbotConfig } from "@/hooks/useChatbotConfig";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import chatbotImage from "@/public/chatbot_image.webp";
+import { ChatbotButton } from "@/components/Chatbot";
 
 const ChatbotContainer = () => {
   const t = useTranslations("Chatbot");
@@ -25,18 +26,10 @@ const ChatbotContainer = () => {
 
   return (
     <>
-      <div className="absolute bottom-10 right-10 z-50">
-        <button onClick={handleOpen}>
-          <div className="flex flex-col items-center justify-center rounded-lg p-3 bg-slate-800">
-            <Image
-              src={chatbotImage}
-              alt="Chatbot Image"
-              style={{ width: "50px", height: "auto" }}
-            />
-            {t("askAI")}
-          </div>
-        </button>
+      <div className="absolute bottom-16 right-5 md:bottom-10 md:right-10 z-50">
+        <ChatbotButton onClick={handleOpen} />
       </div>
+
       {isOpen && (
         <Chatbot
           introductionMessage={t("introduction")}
