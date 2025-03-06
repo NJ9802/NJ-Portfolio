@@ -36,9 +36,11 @@ export default function Hero({ pageInfo }: Props) {
         height={140}
       />
       <div className="z-20 pt-8">
-        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[8px] font-semibold">
-          {pageInfo.role[locale]}
-        </h2>
+        <div className="pb-2 px-2">
+          <h2 className="text-sm uppercase text-gray-500 tracking-[4px] md:tracking-[8px] font-semibold">
+            {pageInfo.role[locale]}
+          </h2>
+        </div>
         <h1 className="text-xl lg:text-4xl font-semibold px-10 text-white">
           <span className="mr-3">{text}</span>
           <Cursor cursorColor="#38bdf8" />
