@@ -46,6 +46,7 @@ const ChatbotContainer = () => {
           onWritingFinish={handleWritingFinish}
           messagesEndRef={messagesEndRef}
           onScrollToBottom={scrollToBottom}
+          logoUrl={chatbotImage.src}
         />
       )}
     </>

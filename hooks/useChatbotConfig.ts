@@ -43,12 +43,9 @@ export const useChatbotConfig = () => {
     setIsOpen(false);
   }, [setIsOpen]);
 
-  const handleChangeUserMessage = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setuserMessage(e.target.value);
-    },
-    []
-  );
+  const handleChangeUserMessage = useCallback((value: string) => {
+    setuserMessage(value);
+  }, []);
 
   const handleWritingFinish = useCallback(() => {
     if (!isWriting) {
