@@ -56,6 +56,7 @@
     "errorMessage": "Parece que ha ocurrido algún error, inténtelo de nuevo más tarde...",
     "title": "Asistente del portafolio de Nelson",
     "inputPlaceholder": "Escribe tu pregunta...",
-    "introduction": "Hola soy el Asistente del portafolio de Nelson, ¿en qué te puedo ayudar?"
+    "introduction": "Hola soy el Asistente del portafolio de Nelson, ¿en qué te puedo ayudar?",
+    "askAI": "Asistente IA"
   }
 }

@@ -1,11 +1,9 @@
 "use client";
 import Chatbot from "@/components/Chatbot/Chatbot";
-import { CHAT_ROLES } from "@/constants";
-import { CHAT_STATUS_ENUM } from "@/constants/chat-status.enum";
 import { useChatbotConfig } from "@/hooks/useChatbotConfig";
-import { Message } from "@/types/Message";
 import { useTranslations } from "next-intl";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import chatbotImage from "@/public/chatbot_image.webp";
 
 const ChatbotContainer = () => {
   const t = useTranslations("Chatbot");
@@ -21,12 +19,23 @@ const ChatbotContainer = () => {
     userMessage,
     handleChangeUserMessage,
     handleWritingFinish,
+    messagesEndRef,
+    scrollToBottom,
   } = useChatbotConfig();
 
   return (
     <>
-      <div className="absolute bottom-12 right-12">
-        <button onClick={handleOpen}>Ask AI</button>
+      <div className="absolute bottom-10 right-10 z-50">
+        <button onClick={handleOpen}>
+          <div className="flex flex-col items-center justify-center rounded-lg p-3 bg-slate-800">
+            <Image
+              src={chatbotImage}
+              alt="Chatbot Image"
+              style={{ width: "50px", height: "auto" }}
+            />
+            {t("askAI")}
+          </div>
+        </button>
       </div>
       {isOpen && (
         <Chatbot
@@ -42,6 +51,8 @@ const ChatbotContainer = () => {
           title={t("title")}
           placeholderText={t("inputPlaceholder")}
           onWritingFinish={handleWritingFinish}
+          messagesEndRef={messagesEndRef}
+          onScrollToBottom={scrollToBottom}
         />
       )}
     </>

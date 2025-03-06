@@ -1,7 +1,15 @@
 import { CHAT_ROLES } from "@/constants";
 import { CHAT_STATUS_ENUM } from "@/constants/chat-status.enum";
+import { ChatbotService } from "@/services";
 import { Message } from "@/types/Message";
-import { ChangeEvent, FormEvent, useCallback, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export const useChatbotConfig = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +18,11 @@ export const useChatbotConfig = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [userMessage, setuserMessage] = useState("");
   const [status, setStatus] = useState(CHAT_STATUS_ENUM.READY);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   const isLoading = useMemo(
     () => status === CHAT_STATUS_ENUM.LOADING,
@@ -63,9 +76,10 @@ export const useChatbotConfig = () => {
           if (done) break;
 
           const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
+          const events = chunk.split("\n");
 
-          for (const line of lines) {
+          for (const event of events) {
+            const line = event.replace("data:", "");
             if (!line.trim()) continue;
 
             try {
@@ -74,6 +88,7 @@ export const useChatbotConfig = () => {
               if (data.text) {
                 accumulatedText += data.text;
                 setCurrentMessage(accumulatedText);
+                scrollToBottom();
               }
 
               if (data.id) {
@@ -91,7 +106,7 @@ export const useChatbotConfig = () => {
         console.error("Stream error:", error);
       }
     },
-    [conversationId]
+    [conversationId, scrollToBottom]
   );
 
   const handleSendMessage = useCallback(
@@ -104,23 +119,14 @@ export const useChatbotConfig = () => {
       setuserMessage("");
 
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/chatbot/stream",
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(
-              conversationId
-                ? {
-                    history: messages,
-                    message: userMessage,
-                    id: conversationId,
-                  }
-                : { history: messages, message: userMessage }
-            ),
-          }
+        const response = await ChatbotService.sendMessage(
+          conversationId
+            ? {
+                history: messages,
+                message: userMessage,
+                id: conversationId,
+              }
+            : { history: messages, message: userMessage }
         );
 
         setMessages((prev) => [
@@ -149,5 +155,7 @@ export const useChatbotConfig = () => {
     userMessage,
     handleChangeUserMessage,
     handleWritingFinish,
+    messagesEndRef,
+    scrollToBottom,
   };
 };

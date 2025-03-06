@@ -2,9 +2,9 @@
 
 import { CHAT_ROLES } from "@/constants";
 import { Message } from "@/types/Message";
-import { Download, X } from "lucide-react";
+import { Download, Send, X } from "lucide-react";
 import Image from "next/image";
-import { ChangeEvent, FormEvent, useEffect, useMemo, useRef } from "react";
+import { ChangeEvent, FormEvent, RefObject, useEffect, useMemo } from "react";
 import { Input } from "../ui/input";
 import ErrorHandler from "./ErrorHandler";
 import LoadingAnimation from "./LoadingAnimation";
@@ -27,6 +27,8 @@ interface ChatbotProps {
   isError?: boolean;
   introductionMessage: string;
   onWritingFinish: () => void;
+  messagesEndRef: RefObject<HTMLDivElement>;
+  onScrollToBottom: () => void;
 }
 
 export default function Chatbot({
@@ -44,21 +46,17 @@ export default function Chatbot({
   onSend,
   isError,
   onWritingFinish,
+  messagesEndRef,
+  onScrollToBottom,
 }: ChatbotProps) {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isLoading, isError, currentMessage]);
+    onScrollToBottom();
+  }, [messages, isLoading, isError, onScrollToBottom]);
 
   const isMessagesEmpty = useMemo(() => messages.length === 0, [messages]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#0F1729]/80 backdrop-blur-sm">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#0F1729]/80 backdrop-blur-sm min-h-[300px]">
       <div className="bg-[#0F1729] text-gray-100 w-full max-w-2xl rounded-lg overflow-hidden shadow-xl border border-gray-800">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1a2236]">
@@ -108,8 +106,9 @@ export default function Chatbot({
             <MessageContainer role={CHAT_ROLES.MODEL}>
               <TypeWritteEffect
                 text={currentMessage}
-                delay={1}
+                delay={0}
                 onFinish={onWritingFinish}
+                scrollToBottom={onScrollToBottom}
               />
             </MessageContainer>
           )}
@@ -132,16 +131,16 @@ export default function Chatbot({
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-50"
+                className="absolute bg-slate-700 rounded-r-md py-[9px] px-3 right-0 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-50"
                 disabled={isLoading}
               >
-                <Download className="w-5 h-5" />
+                <Send className="w-5 h-5" />
               </button>
             </div>
           </form>
           <div className="flex justify-between mt-2 text-xs text-gray-500">
             <span>{poweredByText}</span>
-            <span>protected by reCAPTCHA</span>
+            {/* <span>protected by reCAPTCHA</span> */}
           </div>
         </div>
       </div>
