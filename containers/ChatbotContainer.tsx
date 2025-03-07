@@ -1,10 +1,9 @@
 "use client";
+import { ChatbotButton } from "@/components/Chatbot";
 import Chatbot from "@/components/Chatbot/Chatbot";
 import { useChatbotConfig } from "@/hooks/useChatbotConfig";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
 import chatbotImage from "@/public/chatbot_image.webp";
-import { ChatbotButton } from "@/components/Chatbot";
+import { useTranslations } from "next-intl";
 
 const ChatbotContainer = () => {
   const t = useTranslations("Chatbot");
@@ -15,6 +14,7 @@ const ChatbotContainer = () => {
     currentMessage,
     isLoading,
     isError,
+    isWriting,
     handleSendMessage,
     messages,
     userMessage,
@@ -22,11 +22,12 @@ const ChatbotContainer = () => {
     handleWritingFinish,
     messagesEndRef,
     scrollToBottom,
+    cleanError,
   } = useChatbotConfig();
 
   return (
     <>
-      <div className="absolute bottom-16 right-5 md:bottom-10 md:right-10 z-50">
+      <div className="absolute bottom-16 right-3 md:bottom-10 md:right-10 z-50">
         <ChatbotButton onClick={handleOpen} />
       </div>
 
@@ -36,6 +37,7 @@ const ChatbotContainer = () => {
           onSend={handleSendMessage}
           messages={messages}
           isLoading={isLoading}
+          isWriting={isWriting}
           onClose={handleClose}
           currentMessage={currentMessage}
           input={userMessage}
@@ -47,6 +49,7 @@ const ChatbotContainer = () => {
           messagesEndRef={messagesEndRef}
           onScrollToBottom={scrollToBottom}
           logoUrl={chatbotImage.src}
+          cleanError={cleanError}
         />
       )}
     </>

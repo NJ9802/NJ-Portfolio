@@ -57,6 +57,10 @@ export const useChatbotConfig = () => {
     }
   }, [currentMessage, isWriting]);
 
+  const cleanError = useCallback(() => {
+    setStatus(CHAT_STATUS_ENUM.READY);
+  }, []);
+
   const processStream = useCallback(
     async (response: Response) => {
       const reader = response.body?.getReader();
@@ -146,6 +150,7 @@ export const useChatbotConfig = () => {
     handleClose,
     isLoading,
     isError,
+    isWriting,
     handleSendMessage,
     currentMessage,
     messages,
@@ -154,5 +159,6 @@ export const useChatbotConfig = () => {
     handleWritingFinish,
     messagesEndRef,
     scrollToBottom,
+    cleanError,
   };
 };

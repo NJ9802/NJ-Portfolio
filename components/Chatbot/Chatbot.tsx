@@ -29,6 +29,8 @@ interface ChatbotProps {
   onWritingFinish: () => void;
   messagesEndRef: RefObject<HTMLDivElement>;
   onScrollToBottom: () => void;
+  cleanError: () => void;
+  isWriting?: boolean;
 }
 
 export default function Chatbot({
@@ -48,12 +50,27 @@ export default function Chatbot({
   onWritingFinish,
   messagesEndRef,
   onScrollToBottom,
+  cleanError,
+  isWriting,
 }: ChatbotProps) {
   useEffect(() => {
     onScrollToBottom();
   }, [messages, isLoading, isError, onScrollToBottom]);
 
+  useEffect(() => {
+    return () => {
+      cleanError();
+    };
+  }, [cleanError]);
+
   const isMessagesEmpty = useMemo(() => messages.length === 0, [messages]);
+
+  const disabled = useMemo(() => isLoading || input === "", [isLoading, input]);
+
+  const inputDisabled = useMemo(
+    () => isLoading || isWriting,
+    [isLoading, isWriting]
+  );
 
   return (
     <div className="fixed px-2 inset-0 flex items-center justify-center z-50 bg-[#0F1729]/80 backdrop-blur-sm">
@@ -116,7 +133,7 @@ export default function Chatbot({
             </MessageContainer>
           )}
           {isLoading && <LoadingAnimation />}
-          {isError && <ErrorHandler />}
+          {isError && <ErrorHandler onClose={cleanError} />}
 
           <div ref={messagesEndRef} />
         </div>
@@ -131,13 +148,13 @@ export default function Chatbot({
                   placeholder={placeholderText}
                   value={input}
                   onChange={onInputChange}
-                  disabled={isLoading}
+                  disabled={inputDisabled}
                 />
               </div>
               <button
                 type="submit"
-                className="absolute bg-accent rounded-md py-[10px] px-4 right-0 -bottom-3 transform -translate-y-1/2 text-gray-800 hover:text-gray-200 transition-colors disabled:opacity-50"
-                disabled={isLoading}
+                className="absolute bg-accent rounded-md py-[13px] px-4 right-0 -bottom-4 transform -translate-y-1/2 text-gray-800 hover:bg-[#2883aa] disabled:hover:bg-accent transition-colors disabled:opacity-50"
+                disabled={disabled}
               >
                 <Send className="w-5 h-5" />
               </button>

@@ -74,14 +74,28 @@ export default function AutoResizeTextarea({
     }
   }, [propValue, value]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    setValue(newValue);
-    onChange?.(newValue);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const newValue = e.target.value;
+      setValue(newValue);
+      onChange?.(newValue);
+    },
+    [onChange]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        e.currentTarget.form?.requestSubmit();
+      }
+    },
+    []
+  );
 
   return (
     <textarea
+      onKeyDown={handleKeyDown}
       ref={textareaRef}
       id={id}
       name={name}
@@ -90,7 +104,7 @@ export default function AutoResizeTextarea({
       placeholder={placeholder}
       disabled={disabled}
       rows={minRows}
-      className={`w-full resize-none overflow-hidden rounded-md border border-gray-800 bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-700 focus:border-gray-700 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`w-full resize-none overflow-hidden rounded-md border border-gray-800 bg-background px-3 py-2 ring-offset-background placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-700 focus:border-gray-700 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
     />
   );
 }
