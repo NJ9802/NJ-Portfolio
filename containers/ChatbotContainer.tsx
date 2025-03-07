@@ -27,7 +27,7 @@ const ChatbotContainer = () => {
 
   return (
     <>
-      <div className="absolute bottom-16 right-3 md:bottom-10 md:right-10 z-50">
+      <div className="fixed bottom-5 right-3 md:bottom-10 md:right-10 z-50">
         <ChatbotButton onClick={handleOpen} />
       </div>
 

@@ -17,7 +17,7 @@ type Props = {
 };
 
 function Project({ project, i, totalProjects: total }: Props) {
-  const locale = useLocale()
+  const locale = useLocale();
   const t = useTranslations("Projects");
   const { ref: circleEl, width, height } = useElementSize();
   const { ref: cardEl, x, y } = useMouse();
@@ -91,7 +91,7 @@ function Project({ project, i, totalProjects: total }: Props) {
           ))}
         </div>
         <div className="px-5">
-          <p className="text-xs md:text-sm whitespace-pre-line">
+          <p className="text-sm sm:text-base md:text-lg whitespace-pre-line">
             {project.summary[locale]}
           </p>
         </div>

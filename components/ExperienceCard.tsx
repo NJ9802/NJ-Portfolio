@@ -11,10 +11,7 @@ export default function ExperienceCard({ workExperience }: Props) {
   const t = useTranslations("Experience");
 
   return (
-    <article
-      className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0
-    w-80 md:w-96 xl:w-2/4 bg-accent/10 p-10 overflow-hidden"
-    >
+    <article className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0 max-w-xs sm:max-w-sm md:max-w-none xl:w-2/4 bg-accent/10 p-8 sm:p-10 overflow-hidden">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -31,7 +28,7 @@ export default function ExperienceCard({ workExperience }: Props) {
       </motion.div>
 
       <div className="px-0 md:px-10">
-        <h4 className="text-3xl text-white font-light">
+        <h4 className="text-lg md:text-3xl text-white font-light">
           {workExperience.jobTitle}
         </h4>
         <p className="font-bold text-white text-xl mt-1">
@@ -60,11 +57,13 @@ export default function ExperienceCard({ workExperience }: Props) {
         }`}</p>
 
         <ul
-          className="text-sm text-white max-h-48 md:max-h-28 w-64 pr-5 overflow-y-auto 
+          className="text-sm md:text-base text-white max-h-48 md:max-h-36 pr-5 overflow-y-auto 
         md:scrollbar-thin md:scrollbar-track-black/10 md:scrollbar-thumb-accent"
         >
           {workExperience.points.map((point, i) => (
-            <li key={i}>- {point[locale]}</li>
+            <li key={i}>
+              <p>- {point[locale]}</p>
+            </li>
           ))}
         </ul>
       </div>
