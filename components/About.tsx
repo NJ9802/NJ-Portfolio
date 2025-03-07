@@ -19,7 +19,7 @@ const About = ({ pageInfo }: Props) => {
   return (
     <div
       className="relative flex text-center md:text-left
-    md:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
+    lg:flex-row max-w-7xl px-0 md:px-10 flex-col h-screen justify-center mx-auto
     items-center"
     >
       <SectionHeader title={t("title")} />
@@ -29,15 +29,13 @@ const About = ({ pageInfo }: Props) => {
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
-        className="hidden flex-shrink-0 xs:block mt-[4rem] mb-5 md:my-0 w-32 h-32 rounded-full md:rounded-lg
-        md:w-80 md:h-80 xl:w-96 xl:h-96"
+        className="hidden flex-shrink-0 xs:block mt-[4rem] mb-5 md:my-0 object-cover max-w-xs lg:max-w-none rounded-full md:rounded-lg"
       >
         <Image
           src={pageInfo.profilePic}
           alt={pageInfo.name}
-          width={5000}
-          height={5000}
-          className="h-full"
+          width={500}
+          height={500}
         />
       </motion.div>
 

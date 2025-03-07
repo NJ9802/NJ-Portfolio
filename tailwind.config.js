@@ -29,6 +29,9 @@ module.exports = {
       animation: {
         reverseSpin: "reverseSpin 1s linear infinite",
       },
+      colors: {
+        accent: "#38bdf8",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar")],

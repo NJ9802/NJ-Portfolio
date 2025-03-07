@@ -20,8 +20,8 @@ export default function Header({ socials }: Props) {
 
   return (
     <header
-      className="fixed w-full top-0 flex items-start px-5 md:px-[10rem] lg:px-[15rem] py-5 justify-between z-20
-    xl:items-center"
+      className="fixed w-full top-0 flex items-center px-5 md:px-[10rem] lg:px-[15rem] py-5 justify-between z-20
+    "
     >
       <motion.div
         initial={{

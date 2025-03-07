@@ -77,7 +77,7 @@ export default function Projects({ projects }: Props) {
       <div
         ref={scrollRef}
         className="relative mt-6 md:mt-12 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20
-       scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#38bdf8]/80"
+       scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent/80"
       >
         {projects.map((project, i) => (
           <ProjectSection
@@ -97,7 +97,7 @@ export default function Projects({ projects }: Props) {
           <ChevronRightIcon className="h-24 w-24 text-gray-500" />
         </ScrollButton>
       )}
-      <div className="w-full absolute top-[30%] bg-[#38bdf8]/10 left-0 h-[26rem] -skew-y-12" />
+      <div className="w-full absolute top-[30%] bg-accent/10 left-0 h-[26rem] -skew-y-12" />
     </div>
   );
 }

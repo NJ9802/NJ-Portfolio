@@ -1,11 +1,24 @@
+"use client";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import React, { memo } from "react";
+import { memo } from "react";
 
-const ErrorHandler = () => {
+type ErrorHandlerProps = {
+  onClose?: () => void;
+};
+
+const ErrorHandler = ({ onClose }: ErrorHandlerProps) => {
   const t = useTranslations("Chatbot");
   return (
-    <div className={`bg-red-500 rounded-lg p-4 border border-gray-800`}>
-      {t("errorMessage")}
+    <div
+      className={`relative bg-red-800 rounded-lg p-4 border border-gray-800`}
+    >
+      <p className="pr-6">{t("errorMessage")}</p>
+      {onClose && (
+        <button onClick={onClose} className="absolute top-3 right-3">
+          <X className="w-5 h-5" />
+        </button>
+      )}
     </div>
   );
 };
