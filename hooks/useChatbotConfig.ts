@@ -19,6 +19,7 @@ export const useChatbotConfig = () => {
   const [userMessage, setuserMessage] = useState("");
   const [status, setStatus] = useState(CHAT_STATUS_ENUM.READY);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [streamId, setStreamId] = useState<string>("");
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,6 +62,16 @@ export const useChatbotConfig = () => {
     setStatus(CHAT_STATUS_ENUM.READY);
   }, []);
 
+  const handleStopStreaming = useCallback(async () => {
+    const res = await ChatbotService.stopStreaming(streamId);
+
+    if (res.ok) {
+      setStreamId("");
+      setStatus(CHAT_STATUS_ENUM.READY);
+      handleWritingFinish();
+    }
+  }, [streamId, handleWritingFinish]);
+
   const processStream = useCallback(
     async (response: Response) => {
       const reader = response.body?.getReader();
@@ -93,7 +104,6 @@ export const useChatbotConfig = () => {
               }
 
               if (data.id) {
-                setStatus(CHAT_STATUS_ENUM.READY);
                 if (data.id !== conversationId) {
                   setConversationId(data.id);
                 }
@@ -120,7 +130,7 @@ export const useChatbotConfig = () => {
       setuserMessage("");
 
       try {
-        const response = await ChatbotService.sendMessage(
+        const response: Response = await ChatbotService.sendMessage(
           conversationId
             ? {
                 history: messages,
@@ -129,6 +139,12 @@ export const useChatbotConfig = () => {
               }
             : { history: messages, message: userMessage }
         );
+
+        const streamId = response.headers.get("x-stream-id");
+
+        if (streamId) {
+          setStreamId(streamId);
+        }
 
         setMessages((prev) => [
           ...prev,
@@ -160,5 +176,6 @@ export const useChatbotConfig = () => {
     messagesEndRef,
     scrollToBottom,
     cleanError,
+    handleStopStreaming,
   };
 };

@@ -12,4 +12,13 @@ export class ApiClientService {
 
     return response;
   };
+
+  static delete = async (path: string, headers?: HeadersInit) => {
+    const response = await fetch(path, {
+      headers,
+      method: "DELETE",
+    });
+
+    return response;
+  };
 }

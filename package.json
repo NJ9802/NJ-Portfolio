@@ -34,6 +34,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-hot-toast": "^2.5.2",
     "react-markdown": "^10.0.1",
     "react-simple-typewriter": "^5.0.1",
     "react-social-icons": "^5.15.0",

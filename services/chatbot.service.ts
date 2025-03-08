@@ -11,6 +11,12 @@ class ChatbotService extends EntityApiService {
       })
     );
   };
+
+  stopStreaming = (id: string) => {
+    return this.handleResponse(
+      ApiClientService.delete(this.getPath(`/api/chatbot/stream/${id}`))
+    );
+  };
 }
 
 const chatbotServiceInstance = new ChatbotService(CHATBOT_HOST);

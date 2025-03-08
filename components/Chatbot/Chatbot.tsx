@@ -2,7 +2,7 @@
 
 import { CHAT_ROLES } from "@/constants";
 import { Message } from "@/types/Message";
-import { Send, X } from "lucide-react";
+import { Send, StopCircle, X } from "lucide-react";
 import Image from "next/image";
 import { FormEvent, RefObject, useEffect, useMemo } from "react";
 import AutoResizeTextarea from "../ui/adjustable-height-input";
@@ -11,6 +11,8 @@ import LoadingAnimation from "./LoadingAnimation";
 import MarkdownContent from "./MarkdownContent";
 import MessageContainer from "./MessageContainer";
 import TypeWritteEffect from "./TypeWritteEffect";
+import { motion } from "framer-motion";
+import InputButton from "./InputButton";
 
 interface ChatbotProps {
   title?: string;
@@ -31,6 +33,7 @@ interface ChatbotProps {
   onScrollToBottom: () => void;
   cleanError: () => void;
   isWriting?: boolean;
+  onStopStreaming: () => void;
 }
 
 export default function Chatbot({
@@ -52,6 +55,7 @@ export default function Chatbot({
   onScrollToBottom,
   cleanError,
   isWriting,
+  onStopStreaming,
 }: ChatbotProps) {
   useEffect(() => {
     onScrollToBottom();
@@ -79,12 +83,22 @@ export default function Chatbot({
         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1a2236]">
           <div className="flex items-center space-x-3">
             {logoUrl ? (
-              <Image
-                src={logoUrl || "/placeholder.svg"}
-                alt="Logo"
-                width={40}
-                height={40}
-              />
+              <motion.div
+                animate={{
+                  opacity: [0, 0, 0.5, 1],
+                  x: [60, 40, 20, 0, -5, 0],
+                  y: [70, 40, 20, 0, -10, 0],
+                  scale: [0.1, 0.1, 0.1, 0.4, 0.5, 0.6, 0.8, 0.9, 1],
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <Image
+                  src={logoUrl || "/placeholder.svg"}
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                />
+              </motion.div>
             ) : (
               <div className="bg-gray-800 p-1.5 rounded">
                 <div className="bg-gradient-to-br from-gray-200 to-gray-400 w-5 h-5 rounded-sm transform rotate-45"></div>
@@ -103,7 +117,7 @@ export default function Chatbot({
         </div>
 
         {/* Modal Content - Chat Messages */}
-        <div className="p-4 min-h-[130px] md:max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6">
+        <div className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6">
           <MessageContainer role={CHAT_ROLES.MODEL}>
             {isMessagesEmpty ? (
               <TypeWritteEffect text={introductionMessage} delay={10} />
@@ -129,6 +143,7 @@ export default function Chatbot({
                 delay={10}
                 onFinish={onWritingFinish}
                 scrollToBottom={onScrollToBottom}
+                isWriting={isWriting}
               />
             </MessageContainer>
           )}
@@ -151,13 +166,15 @@ export default function Chatbot({
                   disabled={inputDisabled}
                 />
               </div>
-              <button
-                type="submit"
-                className="absolute bg-accent rounded-md py-[13px] px-4 right-0 -bottom-4 transform -translate-y-1/2 text-gray-800 hover:bg-[#2883aa] disabled:hover:bg-accent transition-colors disabled:opacity-50"
-                disabled={disabled}
-              >
-                <Send className="w-5 h-5" />
-              </button>
+              {!isWriting ? (
+                <InputButton type="submit" disabled={disabled}>
+                  <Send className="w-5 h-5" />
+                </InputButton>
+              ) : (
+                <InputButton type="button" onClick={onStopStreaming}>
+                  <StopCircle className="w-5 h-5" />
+                </InputButton>
+              )}
             </div>
           </form>
           <div className="flex justify-between mt-2 text-xs text-gray-500">

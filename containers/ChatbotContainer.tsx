@@ -23,12 +23,13 @@ const ChatbotContainer = () => {
     messagesEndRef,
     scrollToBottom,
     cleanError,
+    handleStopStreaming,
   } = useChatbotConfig();
 
   return (
     <>
       <div className="fixed bottom-5 right-3 md:bottom-10 md:right-10 z-50">
-        <ChatbotButton onClick={handleOpen} />
+        <ChatbotButton onClick={handleOpen} open={isOpen} />
       </div>
 
       {isOpen && (
@@ -50,6 +51,7 @@ const ChatbotContainer = () => {
           onScrollToBottom={scrollToBottom}
           logoUrl={chatbotImage.src}
           cleanError={cleanError}
+          onStopStreaming={handleStopStreaming}
         />
       )}
     </>

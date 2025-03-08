@@ -13,6 +13,7 @@ import {
 import { notFound } from "next/navigation";
 import "../globals.css";
 import ChatbotContainer from "@/containers/ChatbotContainer";
+import { Toaster } from "react-hot-toast";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -59,6 +60,7 @@ export default async function RootLayout({
             <main className="relative">
               {children}
               <ChatbotContainer />
+              <Toaster />
             </main>
             <Footer />
           </ScrollContextProvider>
