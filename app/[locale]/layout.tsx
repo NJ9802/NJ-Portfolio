@@ -12,6 +12,8 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import ChatbotContainer from "@/containers/ChatbotContainer";
+import { Toaster } from "react-hot-toast";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -50,12 +52,16 @@ export default async function RootLayout({
 
   const socials = await getSocials();
   return (
-    <html lang="es">
+    <html lang={locale}>
       <body className="bg-[#0f172a] text-[#94a3b8] overflow-hidden">
         <NextIntlClientProvider messages={messages}>
           <ScrollContextProvider>
             <Header socials={socials} />
-            <main>{children}</main>
+            <main className="relative">
+              {children}
+              <ChatbotContainer />
+              <Toaster />
+            </main>
             <Footer />
           </ScrollContextProvider>
         </NextIntlClientProvider>

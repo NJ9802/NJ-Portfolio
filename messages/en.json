@@ -51,5 +51,12 @@
   "Skills": {
     "title": "Skills",
     "subtitle": "Hover over a skill to see the skill name"
+  },
+  "Chatbot": {
+    "errorMessage": "It seems that something went wrong, please try again later...",
+    "title": "Nelson's Portfolio Assistant",
+    "inputPlaceholder": "Type your question...",
+    "introduction": "Hi, I'm Nelson's Portfolio Assistant, how can I help you?",
+    "askAI": "AI assistant"
   }
 }

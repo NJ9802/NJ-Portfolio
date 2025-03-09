@@ -22,7 +22,7 @@ export default function ContactMe({ pageInfo }: Props) {
       <div className="flex flex-col space-y-5 px-5">
         <h4 className="hidden xs:block text-md text-white md:text-2xl font-semibold text-center">
           {t("subtitle")}
-          <span className="decoration-[#38bdf8]/50 underline ml-2">
+          <span className="decoration-accent/50 underline ml-2">
             {t("letsTalk")}
           </span>
         </h4>
@@ -30,13 +30,13 @@ export default function ContactMe({ pageInfo }: Props) {
         <div className="hidden xs:block space-y-1 ">
           {pageInfo.phoneNumber && (
             <div className="flex items-center space-x-5 justify-center">
-              <PhoneIcon className="text-[#38bdf8] h-5 w-5 animate-pulse" />
+              <PhoneIcon className="text-accent h-5 w-5 animate-pulse" />
               <p className="text-lg">{pageInfo.phoneNumber}</p>
             </div>
           )}
 
           <div className="flex items-center space-x-5 justify-center">
-            <EnvelopeIcon className="text-[#38bdf8] h-5 w-5 animate-pulse" />
+            <EnvelopeIcon className="text-accent h-5 w-5 animate-pulse" />
             <p className="text-lg">{pageInfo.email}</p>
           </div>
         </div>

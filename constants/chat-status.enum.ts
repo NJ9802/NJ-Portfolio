@@ -1,0 +1,6 @@
+export enum CHAT_STATUS_ENUM {
+  LOADING = "LOADING",
+  ERROR = "ERROR",
+  READY = "READY",
+  WRITING = "WRITING",
+}

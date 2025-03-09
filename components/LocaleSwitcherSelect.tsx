@@ -38,13 +38,13 @@ export default function LocaleSwitcherSelect({
     <>
       <label
         className={clsx(
-          "text-[#808080] cursor-pointer flex items-center",
+          "text-[#808080] cursor-pointer flex items-center font-bold",
           isPending && "transition-opacity [&:disabled]:opacity-30"
         )}
       >
         <p className="sr-only">{label}</p>
         <select
-          className="cursor-pointer inline-flex appearance-none bg-transparent px-3 focus:outline-none"
+          className="cursor-pointer inline-flex appearance-none bg-transparent pl-3 pr-1 md:pr-2 focus:outline-none"
           defaultValue={defaultValue}
           disabled={isPending}
           onChange={onSelectChange}
