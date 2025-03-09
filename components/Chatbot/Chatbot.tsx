@@ -4,7 +4,7 @@ import { CHAT_ROLES } from "@/constants";
 import { Message } from "@/types/Message";
 import { Send, StopCircle, X } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, RefObject, useEffect, useMemo } from "react";
+import { FormEvent, RefObject, useCallback, useEffect, useMemo } from "react";
 import AutoResizeTextarea from "../ui/adjustable-height-input";
 import ErrorHandler from "./ErrorHandler";
 import LoadingAnimation from "./LoadingAnimation";
@@ -22,6 +22,7 @@ interface ChatbotProps {
   poweredByText?: string;
   placeholderText?: string;
   isLoading?: boolean;
+  isStopped?: boolean;
   currentMessage: string;
   input: string;
   onInputChange: (value: string) => void;
@@ -33,6 +34,7 @@ interface ChatbotProps {
   onScrollToBottom: () => void;
   cleanError: () => void;
   isWriting?: boolean;
+  isStreaming?: boolean;
   onStopStreaming: () => void;
 }
 
@@ -55,6 +57,8 @@ export default function Chatbot({
   onScrollToBottom,
   cleanError,
   isWriting,
+  isStopped,
+  isStreaming,
   onStopStreaming,
 }: ChatbotProps) {
   useEffect(() => {
@@ -72,8 +76,8 @@ export default function Chatbot({
   const disabled = useMemo(() => isLoading || input === "", [isLoading, input]);
 
   const inputDisabled = useMemo(
-    () => isLoading || isWriting,
-    [isLoading, isWriting]
+    () => isLoading || isWriting || isStreaming,
+    [isLoading, isWriting, isStreaming]
   );
 
   return (
@@ -143,7 +147,9 @@ export default function Chatbot({
                 delay={10}
                 onFinish={onWritingFinish}
                 scrollToBottom={onScrollToBottom}
-                isWriting={isWriting}
+                isStopped={isStopped}
+                isStreaming={isStreaming}
+                isError={isError}
               />
             </MessageContainer>
           )}
@@ -166,7 +172,7 @@ export default function Chatbot({
                   disabled={inputDisabled}
                 />
               </div>
-              {!isWriting ? (
+              {!isWriting && !isStreaming ? (
                 <InputButton type="submit" disabled={disabled}>
                   <Send className="w-5 h-5" />
                 </InputButton>

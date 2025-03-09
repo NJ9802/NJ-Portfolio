@@ -2,14 +2,7 @@ import { CHAT_ROLES } from "@/constants";
 import { CHAT_STATUS_ENUM } from "@/constants/chat-status.enum";
 import { ChatbotService } from "@/services";
 import { Message } from "@/types/Message";
-import {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, useCallback, useMemo, useRef, useState } from "react";
 
 export const useChatbotConfig = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +13,7 @@ export const useChatbotConfig = () => {
   const [status, setStatus] = useState(CHAT_STATUS_ENUM.READY);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [streamId, setStreamId] = useState<string>("");
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,42 +29,72 @@ export const useChatbotConfig = () => {
     () => status === CHAT_STATUS_ENUM.WRITING,
     [status]
   );
+  const isStopped = useMemo(
+    () => status === CHAT_STATUS_ENUM.STOPPED,
+    [status]
+  );
+  const isStreaming = useMemo(
+    () => status === CHAT_STATUS_ENUM.STREAMING,
+    [status]
+  );
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, [setIsOpen]);
 
+  const handleStopStreaming = useCallback(async () => {
+    try {
+      if (isLoading) {
+        abortControllerRef.current?.abort();
+      }
+
+      if (streamId) {
+        const res = await ChatbotService.stopStreaming(streamId);
+        if (res.ok) {
+          setStreamId("");
+        }
+      }
+      if (isStreaming || isWriting) {
+        setStatus(CHAT_STATUS_ENUM.STOPPED);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [streamId, isWriting, isStreaming, isLoading]);
+
+  const handleWritingFinish = useCallback(
+    (finishAll?: boolean) => {
+      if (!isWriting && !isStreaming && currentMessage) {
+        setMessages((prev) => [
+          ...prev,
+          { content: currentMessage, role: CHAT_ROLES.MODEL },
+        ]);
+        if (isStopped) {
+          setStatus(CHAT_STATUS_ENUM.READY);
+        }
+        setCurrentMessage("");
+      }
+
+      if (finishAll) {
+        setStatus(CHAT_STATUS_ENUM.READY);
+      }
+    },
+    [currentMessage, isWriting, isStopped, isStreaming]
+  );
+
   const handleClose = useCallback(() => {
     setIsOpen(false);
-  }, [setIsOpen]);
+    handleStopStreaming();
+    handleWritingFinish();
+  }, [setIsOpen, handleStopStreaming, handleWritingFinish]);
 
   const handleChangeUserMessage = useCallback((value: string) => {
     setuserMessage(value);
   }, []);
 
-  const handleWritingFinish = useCallback(() => {
-    if (!isWriting) {
-      setMessages((prev) => [
-        ...prev,
-        { content: currentMessage, role: CHAT_ROLES.MODEL },
-      ]);
-      setCurrentMessage("");
-    }
-  }, [currentMessage, isWriting]);
-
   const cleanError = useCallback(() => {
     setStatus(CHAT_STATUS_ENUM.READY);
   }, []);
-
-  const handleStopStreaming = useCallback(async () => {
-    const res = await ChatbotService.stopStreaming(streamId);
-
-    if (res.ok) {
-      setStreamId("");
-      setStatus(CHAT_STATUS_ENUM.READY);
-      handleWritingFinish();
-    }
-  }, [streamId, handleWritingFinish]);
 
   const processStream = useCallback(
     async (response: Response) => {
@@ -82,7 +106,7 @@ export const useChatbotConfig = () => {
       let accumulatedText = "";
 
       try {
-        setStatus(CHAT_STATUS_ENUM.WRITING);
+        setStatus(CHAT_STATUS_ENUM.STREAMING);
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
@@ -92,6 +116,9 @@ export const useChatbotConfig = () => {
 
           for (const event of events) {
             const line = event.replace("data:", "");
+            if (line === "event: error") {
+              throw new Error("Stream error");
+            }
             if (!line.trim()) continue;
 
             try {
@@ -108,13 +135,14 @@ export const useChatbotConfig = () => {
                   setConversationId(data.id);
                 }
               }
-            } catch (error) {
-              console.error("Error parsing JSON:", error);
-            }
+            } catch {}
           }
         }
       } catch (error) {
         console.error("Stream error:", error);
+        throw error;
+      } finally {
+        setStatus(CHAT_STATUS_ENUM.WRITING);
       }
     },
     [conversationId, scrollToBottom]
@@ -130,6 +158,8 @@ export const useChatbotConfig = () => {
       setuserMessage("");
 
       try {
+        abortControllerRef.current = new AbortController();
+        const signal = abortControllerRef.current.signal;
         const response: Response = await ChatbotService.sendMessage(
           conversationId
             ? {
@@ -137,7 +167,8 @@ export const useChatbotConfig = () => {
                 message: userMessage,
                 id: conversationId,
               }
-            : { history: messages, message: userMessage }
+            : { history: messages, message: userMessage },
+          { signal }
         );
 
         const streamId = response.headers.get("x-stream-id");
@@ -151,10 +182,11 @@ export const useChatbotConfig = () => {
           { content: userMessage, role: CHAT_ROLES.USER },
         ]);
         await processStream(response);
-        setStatus(CHAT_STATUS_ENUM.READY);
-      } catch (error) {
-        setStatus(CHAT_STATUS_ENUM.ERROR);
-        console.error("Request failed:", error);
+      } catch (error: any) {
+        if (error?.name !== "AbortError") {
+          setStatus(CHAT_STATUS_ENUM.ERROR);
+          console.error("Request failed:", error);
+        }
       }
     },
     [conversationId, userMessage, messages, isLoading, processStream]
@@ -167,6 +199,7 @@ export const useChatbotConfig = () => {
     isLoading,
     isError,
     isWriting,
+    isStopped,
     handleSendMessage,
     currentMessage,
     messages,
@@ -177,5 +210,6 @@ export const useChatbotConfig = () => {
     scrollToBottom,
     cleanError,
     handleStopStreaming,
+    isStreaming,
   };
 };

@@ -24,6 +24,8 @@ const ChatbotContainer = () => {
     scrollToBottom,
     cleanError,
     handleStopStreaming,
+    isStopped,
+    isStreaming,
   } = useChatbotConfig();
 
   return (
@@ -39,6 +41,8 @@ const ChatbotContainer = () => {
           messages={messages}
           isLoading={isLoading}
           isWriting={isWriting}
+          isStopped={isStopped}
+          isStreaming={isStreaming}
           onClose={handleClose}
           currentMessage={currentMessage}
           input={userMessage}
