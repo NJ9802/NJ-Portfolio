@@ -121,7 +121,7 @@ export default function Chatbot({
         </div>
 
         {/* Modal Content - Chat Messages */}
-        <div className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6">
+        <div className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6 styled-scrollbar">
           <MessageContainer role={CHAT_ROLES.MODEL}>
             {isMessagesEmpty ? (
               <TypeWritteEffect text={introductionMessage} delay={10} />

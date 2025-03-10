@@ -76,8 +76,7 @@ export default function Projects({ projects }: Props) {
 
       <div
         ref={scrollRef}
-        className="relative mt-6 md:mt-12 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20
-       scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent/80"
+        className="relative mt-6 md:mt-12 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 styled-scrollbar"
       >
         {projects.map((project, i) => (
           <ProjectSection

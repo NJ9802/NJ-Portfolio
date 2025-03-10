@@ -9,9 +9,13 @@
     focus:text-accent/60 hover:border-accent/40;
   }
 
+  .styled-scrollbar {
+    @apply scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent/80;
+  }
+
   .projectLink {
     @apply mr-1 hidden xl:block px-6 py-2 border border-black/5 rounded-lg uppercase text-xs
     tracking-widest text-gray-500 shadow-md transition-all duration-300 hover:border-accent/40
-   hover:text-accent bg-black/20
+   hover:text-accent bg-black/20;
   }
 }

@@ -11,7 +11,7 @@ type Props = {
 
 export default function Skill({ skill, directionUp }: Props) {
   return (
-    <div className="group flex cursor-pointer">
+    <div className="group flex md:cursor-pointer">
       <motion.div
         initial={{ x: directionUp ? 30 : -30, opacity: 0 }}
         whileInView={{

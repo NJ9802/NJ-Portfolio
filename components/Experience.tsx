@@ -22,8 +22,7 @@ export default function Experience({ workExperiences }: Props) {
       <div
         className={`w-full flex ${
           workExperiences.length === 1 ? "justify-center" : ""
-        } space-x-5 overflow-x-auto pb-4 snap-mandatory snap-x 
-      scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent/80`}
+        } space-x-5 overflow-x-auto pb-4 snap-mandatory snap-x styled-scrollbar`}
       >
         {workExperiences.map((workExperience) => (
           <ExperienceCard
