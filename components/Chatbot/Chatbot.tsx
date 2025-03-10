@@ -4,15 +4,26 @@ import { CHAT_ROLES } from "@/constants";
 import { Message } from "@/types/Message";
 import { Send, StopCircle, X } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, RefObject, useCallback, useEffect, useMemo } from "react";
+import {
+  FormEvent,
+  RefObject,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import AutoResizeTextarea from "../ui/adjustable-height-input";
 import ErrorHandler from "./ErrorHandler";
 import LoadingAnimation from "./LoadingAnimation";
 import MarkdownContent from "./MarkdownContent";
 import MessageContainer from "./MessageContainer";
 import TypeWritteEffect from "./TypeWritteEffect";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import InputButton from "./InputButton";
+import { ScrollContext } from "@/context/scrollContext";
+import { useDetectUpScrollOnWriting } from "@/hooks/useDetectUpScrollOnWriting";
 
 interface ChatbotProps {
   title?: string;
@@ -36,6 +47,7 @@ interface ChatbotProps {
   isWriting?: boolean;
   isStreaming?: boolean;
   onStopStreaming: () => void;
+  onCancelScrollingBottom: () => void;
 }
 
 export default function Chatbot({
@@ -60,10 +72,16 @@ export default function Chatbot({
   isStopped,
   isStreaming,
   onStopStreaming,
+  onCancelScrollingBottom,
 }: ChatbotProps) {
+  const { scrollDivRef, handleScroll } = useDetectUpScrollOnWriting(
+    onCancelScrollingBottom
+  );
+
   useEffect(() => {
+    console.log("CHATBOT USE EFFECT EXECUTION");
     onScrollToBottom();
-  }, [messages, isLoading, isError, onScrollToBottom]);
+  }, [isLoading, isError, onScrollToBottom]);
 
   useEffect(() => {
     return () => {
@@ -121,7 +139,11 @@ export default function Chatbot({
         </div>
 
         {/* Modal Content - Chat Messages */}
-        <div className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6 styled-scrollbar">
+        <div
+          className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6 styled-scrollbar"
+          ref={scrollDivRef}
+          onScroll={handleScroll}
+        >
           <MessageContainer role={CHAT_ROLES.MODEL}>
             {isMessagesEmpty ? (
               <TypeWritteEffect text={introductionMessage} delay={10} />

@@ -26,6 +26,7 @@ const ChatbotContainer = () => {
     handleStopStreaming,
     isStopped,
     isStreaming,
+    handleCancelScrollingBottom,
   } = useChatbotConfig();
 
   return (
@@ -36,6 +37,7 @@ const ChatbotContainer = () => {
 
       {isOpen && (
         <Chatbot
+          onCancelScrollingBottom={handleCancelScrollingBottom}
           introductionMessage={t("introduction")}
           onSend={handleSendMessage}
           messages={messages}

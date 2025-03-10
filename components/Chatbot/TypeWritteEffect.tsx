@@ -35,7 +35,9 @@ const TypeWritteEffect = ({
     } else {
       onFinish?.();
     }
+    console.log("TYPEWRITER EFFECT EXECUTION");
     scrollToBottom?.();
+
     return () => clearTimeout(timeout);
   }, [
     currentIndex,

@@ -14,10 +14,7 @@ export const useChatbotConfig = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [streamId, setStreamId] = useState<string>("");
   const abortControllerRef = useRef<AbortController | null>(null);
-
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  const [cancelScrollingBottom, setCancelScrollingBottom] = useState(false);
 
   const isLoading = useMemo(
     () => status === CHAT_STATUS_ENUM.LOADING,
@@ -37,6 +34,18 @@ export const useChatbotConfig = () => {
     () => status === CHAT_STATUS_ENUM.STREAMING,
     [status]
   );
+
+  const scrollToBottom = useCallback(() => {
+    if (!cancelScrollingBottom) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [cancelScrollingBottom]);
+
+  const handleCancelScrollingBottom = useCallback(() => {
+    if (isWriting || isStreaming) {
+      setCancelScrollingBottom(true);
+    }
+  }, [isWriting, isStreaming]);
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
@@ -71,12 +80,14 @@ export const useChatbotConfig = () => {
         ]);
         if (isStopped) {
           setStatus(CHAT_STATUS_ENUM.READY);
+          setCancelScrollingBottom(false);
         }
         setCurrentMessage("");
       }
 
       if (finishAll) {
         setStatus(CHAT_STATUS_ENUM.READY);
+        setCancelScrollingBottom(false);
       }
     },
     [currentMessage, isWriting, isStopped, isStreaming]
@@ -211,5 +222,6 @@ export const useChatbotConfig = () => {
     cleanError,
     handleStopStreaming,
     isStreaming,
+    handleCancelScrollingBottom,
   };
 };
