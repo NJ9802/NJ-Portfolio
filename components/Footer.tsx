@@ -13,10 +13,7 @@ export default function Footer({}: Props) {
   const y = useTransform(translateY, [0, 750], [100, 0]);
 
   return (
-    <motion.footer
-      style={{ translateY: y }}
-      className="fixed bottom-5 w-full px-10"
-    >
+    <motion.div style={{ translateY: y }} className="fixed bottom-5 px-10">
       <div className="flex items-center justify-start">
         <a href="#hero">
           <div className="group p-3">
@@ -24,6 +21,6 @@ export default function Footer({}: Props) {
           </div>
         </a>
       </div>
-    </motion.footer>
+    </motion.div>
   );
 }

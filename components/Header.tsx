@@ -66,7 +66,7 @@ export default function Header({ socials }: Props) {
 
         <a
           className="text-lg text-[#808080] font-bold tracking-widest"
-          href={`/Nelson Front-End Developer CV ${locale}.pdf`}
+          href={`/Nelson Full-Stack Developer CV ${locale}.pdf`}
           target="_blank"
         >
           CV

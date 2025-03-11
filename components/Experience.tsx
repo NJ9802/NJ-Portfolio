@@ -1,5 +1,3 @@
-"use client";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type Experience from "../types/Experience";
 import ExperienceCard from "./ExperienceCard";
@@ -10,10 +8,7 @@ type Props = { workExperiences: Experience[] };
 export default function Experience({ workExperiences }: Props) {
   const t = useTranslations("Experience");
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
+    <div
       className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full md:px-10
     justify-evenly mx-auto items-center"
     >
@@ -31,6 +26,6 @@ export default function Experience({ workExperiences }: Props) {
           />
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
