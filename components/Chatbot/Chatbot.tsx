@@ -1,12 +1,16 @@
 "use client";
 
 import { CHAT_ROLES } from "@/constants";
+import { useChatbotConfigContext } from "@/context/ChatbotConfigProvider";
+import { useDetectUpScrollOnWriting } from "@/hooks/useDetectUpScrollOnWriting";
 import { Message } from "@/types/Message";
-import { Send, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Send, StopCircle, X } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, RefObject, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import AutoResizeTextarea from "../ui/adjustable-height-input";
 import ErrorHandler from "./ErrorHandler";
+import InputButton from "./InputButton";
 import LoadingAnimation from "./LoadingAnimation";
 import MarkdownContent from "./MarkdownContent";
 import MessageContainer from "./MessageContainer";
@@ -14,48 +18,46 @@ import TypeWritteEffect from "./TypeWritteEffect";
 
 interface ChatbotProps {
   title?: string;
-  messages: Message[];
-  onClose?: () => void;
   logoUrl?: string;
   poweredByText?: string;
   placeholderText?: string;
-  isLoading?: boolean;
-  currentMessage: string;
-  input: string;
-  onInputChange: (value: string) => void;
-  onSend: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  isError?: boolean;
   introductionMessage: string;
-  onWritingFinish: () => void;
-  messagesEndRef: RefObject<HTMLDivElement>;
-  onScrollToBottom: () => void;
-  cleanError: () => void;
-  isWriting?: boolean;
 }
 
 export default function Chatbot({
   title = "Asistente del portafolio de Nelson",
-  messages,
-  onClose,
   logoUrl,
   poweredByText = "powered by NJ portfolio chatbot service",
   placeholderText = "Escribe tu pregunta...",
   introductionMessage,
-  isLoading,
-  currentMessage,
-  input,
-  onInputChange,
-  onSend,
-  isError,
-  onWritingFinish,
-  messagesEndRef,
-  onScrollToBottom,
-  cleanError,
-  isWriting,
 }: ChatbotProps) {
+  const {
+    isError,
+    messages,
+    isLoading,
+    isStopped,
+    isWriting,
+    isStreaming,
+    userMessage,
+    currentMessage,
+    messagesEndRef,
+    cleanError,
+    handleClose,
+    scrollToBottom,
+    handleSendMessage,
+    handleStopStreaming,
+    handleWritingFinish,
+    handleChangeUserMessage,
+    handleCancelScrollingBottom,
+  } = useChatbotConfigContext();
+
+  const { scrollDivRef, handleScroll } = useDetectUpScrollOnWriting(
+    handleCancelScrollingBottom
+  );
+
   useEffect(() => {
-    onScrollToBottom();
-  }, [messages, isLoading, isError, onScrollToBottom]);
+    scrollToBottom();
+  }, [isLoading, isError, scrollToBottom]);
 
   useEffect(() => {
     return () => {
@@ -65,11 +67,14 @@ export default function Chatbot({
 
   const isMessagesEmpty = useMemo(() => messages.length === 0, [messages]);
 
-  const disabled = useMemo(() => isLoading || input === "", [isLoading, input]);
+  const disabled = useMemo(
+    () => isLoading || userMessage === "",
+    [isLoading, userMessage]
+  );
 
   const inputDisabled = useMemo(
-    () => isLoading || isWriting,
-    [isLoading, isWriting]
+    () => isLoading || isWriting || isStreaming,
+    [isLoading, isWriting, isStreaming]
   );
 
   return (
@@ -79,12 +84,22 @@ export default function Chatbot({
         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-[#1a2236]">
           <div className="flex items-center space-x-3">
             {logoUrl ? (
-              <Image
-                src={logoUrl || "/placeholder.svg"}
-                alt="Logo"
-                width={40}
-                height={40}
-              />
+              <motion.div
+                animate={{
+                  opacity: [0, 0, 0.5, 1],
+                  x: [60, 40, 20, 0, -5, 0],
+                  y: [70, 40, 20, 0, -10, 0],
+                  scale: [0.1, 0.1, 0.1, 0.4, 0.5, 0.6, 0.8, 0.9, 1],
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <Image
+                  src={logoUrl || "/placeholder.svg"}
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                />
+              </motion.div>
             ) : (
               <div className="bg-gray-800 p-1.5 rounded">
                 <div className="bg-gradient-to-br from-gray-200 to-gray-400 w-5 h-5 rounded-sm transform rotate-45"></div>
@@ -95,7 +110,7 @@ export default function Chatbot({
             </h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-gray-400 hover:text-gray-200 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -103,7 +118,11 @@ export default function Chatbot({
         </div>
 
         {/* Modal Content - Chat Messages */}
-        <div className="p-4 min-h-[130px] md:max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6">
+        <div
+          className="p-4 min-h-[130px] max-h-[60vh] overflow-y-auto bg-[#0F1729] space-y-6 styled-scrollbar"
+          ref={scrollDivRef}
+          onScroll={handleScroll}
+        >
           <MessageContainer role={CHAT_ROLES.MODEL}>
             {isMessagesEmpty ? (
               <TypeWritteEffect text={introductionMessage} delay={10} />
@@ -127,8 +146,11 @@ export default function Chatbot({
               <TypeWritteEffect
                 text={currentMessage}
                 delay={10}
-                onFinish={onWritingFinish}
-                scrollToBottom={onScrollToBottom}
+                onFinish={handleWritingFinish}
+                scrollToBottom={scrollToBottom}
+                isStopped={isStopped}
+                isStreaming={isStreaming}
+                isError={isError}
               />
             </MessageContainer>
           )}
@@ -140,24 +162,26 @@ export default function Chatbot({
 
         {/* Modal Footer - Input */}
         <div className="p-4 border-t border-gray-800 bg-[#1a2236]">
-          <form onSubmit={onSend}>
+          <form onSubmit={handleSendMessage}>
             <div className="relative">
               <div className="pr-16">
                 <AutoResizeTextarea
                   className="w-full bg-[#0F1729] border-gray-800 rounded-lg pl-4 pr-4 py-3 focus:ring-1 focus:ring-gray-700 focus:border-gray-700 text-gray-200 placeholder-gray-500"
                   placeholder={placeholderText}
-                  value={input}
-                  onChange={onInputChange}
+                  value={userMessage}
+                  onChange={handleChangeUserMessage}
                   disabled={inputDisabled}
                 />
               </div>
-              <button
-                type="submit"
-                className="absolute bg-accent rounded-md py-[13px] px-4 right-0 -bottom-4 transform -translate-y-1/2 text-gray-800 hover:bg-[#2883aa] disabled:hover:bg-accent transition-colors disabled:opacity-50"
-                disabled={disabled}
-              >
-                <Send className="w-5 h-5" />
-              </button>
+              {!isWriting && !isStreaming ? (
+                <InputButton type="submit" disabled={disabled}>
+                  <Send className="w-5 h-5" />
+                </InputButton>
+              ) : (
+                <InputButton type="button" onClick={handleStopStreaming}>
+                  <StopCircle className="w-5 h-5" />
+                </InputButton>
+              )}
             </div>
           </form>
           <div className="flex justify-between mt-2 text-xs text-gray-500">

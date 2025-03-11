@@ -1,8 +1,4 @@
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import ScrollContextProvider from "../../context/scrollContext";
-import { routing } from "../../i18n/routing";
-import { getSocials } from "../../utils";
+import { ChatbotPage } from "@/views";
 import { Analytics } from "@vercel/analytics/react";
 import { NextIntlClientProvider } from "next-intl";
 import {
@@ -11,8 +7,13 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Toaster } from "react-hot-toast";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import ScrollContextProvider from "../../context/scrollContext";
+import { routing } from "../../i18n/routing";
+import { getSocials } from "../../utils";
 import "../globals.css";
-import ChatbotContainer from "@/containers/ChatbotContainer";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -58,7 +59,8 @@ export default async function RootLayout({
             <Header socials={socials} />
             <main className="relative">
               {children}
-              <ChatbotContainer />
+              <ChatbotPage />
+              <Toaster />
             </main>
             <Footer />
           </ScrollContextProvider>

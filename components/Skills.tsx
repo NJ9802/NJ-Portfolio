@@ -28,6 +28,7 @@ export default function Skills({ skills }: Props) {
             key={skill._id}
             skill={skill}
             directionUp={i + 1 > skills.length / 2 ? true : false}
+            delay={i * 0.06}
           />
         ))}
       </div>

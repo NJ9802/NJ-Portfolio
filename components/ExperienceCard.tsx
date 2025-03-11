@@ -1,8 +1,6 @@
-import Experience from "../types/Experience";
-import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-import React from "react";
+import Experience from "../types/Experience";
 
 type Props = { workExperience: Experience };
 
@@ -12,12 +10,7 @@ export default function ExperienceCard({ workExperience }: Props) {
 
   return (
     <article className="flex flex-col rounded-lg items-center space-between space-y-4 flex-shrink-0 max-w-xs sm:max-w-sm md:max-w-none xl:w-2/4 bg-accent/10 p-8 sm:p-10 overflow-hidden">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true }}
-      >
+      <div>
         <Image
           src={workExperience.companyImage}
           alt={workExperience.company}
@@ -25,7 +18,7 @@ export default function ExperienceCard({ workExperience }: Props) {
           width={250}
           height={250}
         />
-      </motion.div>
+      </div>
 
       <div className="px-0 md:px-10">
         <h4 className="text-lg md:text-3xl text-white font-light">

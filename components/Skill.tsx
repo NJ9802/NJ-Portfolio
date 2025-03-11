@@ -7,18 +7,19 @@ import Image from "next/image";
 type Props = {
   skill: Skill;
   directionUp: boolean;
+  delay: number;
 };
 
-export default function Skill({ skill, directionUp }: Props) {
+export default function Skill({ skill, directionUp, delay }: Props) {
   return (
-    <div className="group flex cursor-pointer">
+    <div className="group flex md:cursor-pointer">
       <motion.div
         initial={{ x: directionUp ? 30 : -30, opacity: 0 }}
         whileInView={{
           x: 0,
           opacity: 1,
         }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1, delay }}
         viewport={{ once: true }}
       >
         <Image
