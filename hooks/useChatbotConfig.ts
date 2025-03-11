@@ -119,19 +119,21 @@ export const useChatbotConfig = () => {
 
     if (isStreaming || isWriting) {
       handleStopStreaming();
-      addModelMessage(currentMessage);
+      if (isStreaming) {
+        addModelMessage(currentMessage);
+      }
     }
 
     resetChatbotState();
   }, [
     setIsOpen,
     handleStopStreaming,
+    addModelMessage,
+    currentMessage,
     isReady,
     isStreaming,
     isWriting,
     resetChatbotState,
-    addModelMessage,
-    currentMessage,
   ]);
 
   const handleSendMessage = useCallback(
