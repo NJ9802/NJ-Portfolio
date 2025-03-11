@@ -1,87 +1,63 @@
 "use client";
 
 import { CHAT_ROLES } from "@/constants";
+import { useChatbotConfigContext } from "@/context/ChatbotConfigProvider";
+import { useDetectUpScrollOnWriting } from "@/hooks/useDetectUpScrollOnWriting";
 import { Message } from "@/types/Message";
+import { motion } from "framer-motion";
 import { Send, StopCircle, X } from "lucide-react";
 import Image from "next/image";
-import {
-  FormEvent,
-  RefObject,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useMemo } from "react";
 import AutoResizeTextarea from "../ui/adjustable-height-input";
 import ErrorHandler from "./ErrorHandler";
+import InputButton from "./InputButton";
 import LoadingAnimation from "./LoadingAnimation";
 import MarkdownContent from "./MarkdownContent";
 import MessageContainer from "./MessageContainer";
 import TypeWritteEffect from "./TypeWritteEffect";
-import { motion, useScroll } from "framer-motion";
-import InputButton from "./InputButton";
-import { ScrollContext } from "@/context/scrollContext";
-import { useDetectUpScrollOnWriting } from "@/hooks/useDetectUpScrollOnWriting";
 
 interface ChatbotProps {
   title?: string;
-  messages: Message[];
-  onClose?: () => void;
   logoUrl?: string;
   poweredByText?: string;
   placeholderText?: string;
-  isLoading?: boolean;
-  isStopped?: boolean;
-  currentMessage: string;
-  input: string;
-  onInputChange: (value: string) => void;
-  onSend: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  isError?: boolean;
   introductionMessage: string;
-  onWritingFinish: () => void;
-  messagesEndRef: RefObject<HTMLDivElement>;
-  onScrollToBottom: () => void;
-  cleanError: () => void;
-  isWriting?: boolean;
-  isStreaming?: boolean;
-  onStopStreaming: () => void;
-  onCancelScrollingBottom: () => void;
 }
 
 export default function Chatbot({
   title = "Asistente del portafolio de Nelson",
-  messages,
-  onClose,
   logoUrl,
   poweredByText = "powered by NJ portfolio chatbot service",
   placeholderText = "Escribe tu pregunta...",
   introductionMessage,
-  isLoading,
-  currentMessage,
-  input,
-  onInputChange,
-  onSend,
-  isError,
-  onWritingFinish,
-  messagesEndRef,
-  onScrollToBottom,
-  cleanError,
-  isWriting,
-  isStopped,
-  isStreaming,
-  onStopStreaming,
-  onCancelScrollingBottom,
 }: ChatbotProps) {
+  const {
+    isError,
+    messages,
+    isLoading,
+    isStopped,
+    isWriting,
+    isStreaming,
+    userMessage,
+    currentMessage,
+    messagesEndRef,
+    cleanError,
+    handleClose,
+    scrollToBottom,
+    handleSendMessage,
+    handleStopStreaming,
+    handleWritingFinish,
+    handleChangeUserMessage,
+    handleCancelScrollingBottom,
+  } = useChatbotConfigContext();
+
   const { scrollDivRef, handleScroll } = useDetectUpScrollOnWriting(
-    onCancelScrollingBottom
+    handleCancelScrollingBottom
   );
 
   useEffect(() => {
-    console.log("CHATBOT USE EFFECT EXECUTION");
-    onScrollToBottom();
-  }, [isLoading, isError, onScrollToBottom]);
+    scrollToBottom();
+  }, [isLoading, isError, scrollToBottom]);
 
   useEffect(() => {
     return () => {
@@ -91,7 +67,10 @@ export default function Chatbot({
 
   const isMessagesEmpty = useMemo(() => messages.length === 0, [messages]);
 
-  const disabled = useMemo(() => isLoading || input === "", [isLoading, input]);
+  const disabled = useMemo(
+    () => isLoading || userMessage === "",
+    [isLoading, userMessage]
+  );
 
   const inputDisabled = useMemo(
     () => isLoading || isWriting || isStreaming,
@@ -131,7 +110,7 @@ export default function Chatbot({
             </h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-gray-400 hover:text-gray-200 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -167,8 +146,8 @@ export default function Chatbot({
               <TypeWritteEffect
                 text={currentMessage}
                 delay={10}
-                onFinish={onWritingFinish}
-                scrollToBottom={onScrollToBottom}
+                onFinish={handleWritingFinish}
+                scrollToBottom={scrollToBottom}
                 isStopped={isStopped}
                 isStreaming={isStreaming}
                 isError={isError}
@@ -183,14 +162,14 @@ export default function Chatbot({
 
         {/* Modal Footer - Input */}
         <div className="p-4 border-t border-gray-800 bg-[#1a2236]">
-          <form onSubmit={onSend}>
+          <form onSubmit={handleSendMessage}>
             <div className="relative">
               <div className="pr-16">
                 <AutoResizeTextarea
                   className="w-full bg-[#0F1729] border-gray-800 rounded-lg pl-4 pr-4 py-3 focus:ring-1 focus:ring-gray-700 focus:border-gray-700 text-gray-200 placeholder-gray-500"
                   placeholder={placeholderText}
-                  value={input}
-                  onChange={onInputChange}
+                  value={userMessage}
+                  onChange={handleChangeUserMessage}
                   disabled={inputDisabled}
                 />
               </div>
@@ -199,7 +178,7 @@ export default function Chatbot({
                   <Send className="w-5 h-5" />
                 </InputButton>
               ) : (
-                <InputButton type="button" onClick={onStopStreaming}>
+                <InputButton type="button" onClick={handleStopStreaming}>
                   <StopCircle className="w-5 h-5" />
                 </InputButton>
               )}

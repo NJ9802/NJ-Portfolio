@@ -5,7 +5,7 @@ import chatbotImage from "@/public/chatbot_image.webp";
 import { useTranslations } from "next-intl";
 
 type ChatbotButtonProps = {
-  onClick: () => void;
+  onClick?: () => void;
   open: boolean;
 };
 

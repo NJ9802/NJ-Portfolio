@@ -18,7 +18,6 @@ const TypeWritteEffect = ({
   scrollToBottom,
   isStopped = false,
   isError = false,
-  isStreaming = false,
 }: TypeWritteEffectProps) => {
   const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,12 +29,11 @@ const TypeWritteEffect = ({
         setCurrentText((prevText) => prevText + text[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }, delay);
-    } else if (currentIndex === text.length && !isStreaming) {
+    } else if (currentIndex === text.length) {
       onFinish?.(true);
     } else {
       onFinish?.();
     }
-    console.log("TYPEWRITER EFFECT EXECUTION");
     scrollToBottom?.();
 
     return () => clearTimeout(timeout);
@@ -47,7 +45,6 @@ const TypeWritteEffect = ({
     scrollToBottom,
     isStopped,
     isError,
-    isStreaming,
   ]);
 
   return <MarkdownContent content={currentText} />;

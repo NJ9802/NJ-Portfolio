@@ -1,38 +1,57 @@
-import { CHAT_ROLES } from "@/constants";
-import { CHAT_STATUS_ENUM } from "@/constants/chat-status.enum";
 import { ChatbotService } from "@/services";
-import { Message } from "@/types/Message";
-import { FormEvent, useCallback, useMemo, useRef, useState } from "react";
+import { processStream } from "@/utils/chatbotHelpers";
+import { FormEvent, useCallback, useRef, useState } from "react";
+import { useChatbotMessagesHistory } from "./useChatbotMessagesHistory";
+import { useChatbotStatus } from "./useChatbotStatus";
 
 export const useChatbotConfig = () => {
+  const {
+    isLoading,
+    isError,
+    isWriting,
+    isStopped,
+    isStreaming,
+    isReady,
+    setReady,
+    setError,
+    setWriting,
+    setLoading,
+    setStopped,
+    setStreaming,
+  } = useChatbotStatus();
+  const { messages, addModelMessage, addUserMessage } =
+    useChatbotMessagesHistory();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string>("");
   const [currentMessage, setCurrentMessage] = useState("");
-  const [userMessage, setuserMessage] = useState("");
-  const [status, setStatus] = useState(CHAT_STATUS_ENUM.READY);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [userMessage, setUserMessage] = useState("");
   const [streamId, setStreamId] = useState<string>("");
-  const abortControllerRef = useRef<AbortController | null>(null);
   const [cancelScrollingBottom, setCancelScrollingBottom] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  const isLoading = useMemo(
-    () => status === CHAT_STATUS_ENUM.LOADING,
-    [status]
-  );
+  const handleChangeUserMessage = useCallback((value: string) => {
+    setUserMessage(value);
+  }, []);
 
-  const isError = useMemo(() => status === CHAT_STATUS_ENUM.ERROR, [status]);
-  const isWriting = useMemo(
-    () => status === CHAT_STATUS_ENUM.WRITING,
-    [status]
-  );
-  const isStopped = useMemo(
-    () => status === CHAT_STATUS_ENUM.STOPPED,
-    [status]
-  );
-  const isStreaming = useMemo(
-    () => status === CHAT_STATUS_ENUM.STREAMING,
-    [status]
+  const cleanError = useCallback(() => {
+    setReady();
+  }, [setReady]);
+
+  const resetChatbotState = useCallback(() => {
+    if (!isError) {
+      setReady();
+    }
+    setCurrentMessage("");
+  }, [setReady, setCurrentMessage, isError]);
+
+  const updateConversationId = useCallback(
+    (id: string) => {
+      if (id !== conversationId) {
+        setConversationId(id);
+      }
+    },
+    [conversationId]
   );
 
   const scrollToBottom = useCallback(() => {
@@ -49,124 +68,80 @@ export const useChatbotConfig = () => {
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
+    setCancelScrollingBottom(false);
   }, [setIsOpen]);
+
+  const handleWritingFinish = useCallback(
+    (finishAll?: boolean) => {
+      if ((finishAll && !isStreaming) || isStopped) {
+        addModelMessage(currentMessage);
+        resetChatbotState();
+      }
+    },
+    [currentMessage, isStopped, isStreaming, resetChatbotState, addModelMessage]
+  );
 
   const handleStopStreaming = useCallback(async () => {
     try {
       if (isLoading) {
         abortControllerRef.current?.abort();
+        return;
       }
 
-      if (streamId) {
+      if (streamId && isStreaming) {
         const res = await ChatbotService.stopStreaming(streamId);
         if (res.ok) {
           setStreamId("");
         }
+      } else {
+        setStreamId("");
       }
+
       if (isStreaming || isWriting) {
-        setStatus(CHAT_STATUS_ENUM.STOPPED);
+        setStopped();
+        handleWritingFinish(true);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [streamId, isWriting, isStreaming, isLoading]);
-
-  const handleWritingFinish = useCallback(
-    (finishAll?: boolean) => {
-      if (!isWriting && !isStreaming && currentMessage) {
-        setMessages((prev) => [
-          ...prev,
-          { content: currentMessage, role: CHAT_ROLES.MODEL },
-        ]);
-        if (isStopped) {
-          setStatus(CHAT_STATUS_ENUM.READY);
-          setCancelScrollingBottom(false);
-        }
-        setCurrentMessage("");
-      }
-
-      if (finishAll) {
-        setStatus(CHAT_STATUS_ENUM.READY);
-        setCancelScrollingBottom(false);
-      }
-    },
-    [currentMessage, isWriting, isStopped, isStreaming]
-  );
+  }, [
+    streamId,
+    isWriting,
+    isStreaming,
+    isLoading,
+    setStopped,
+    handleWritingFinish,
+  ]);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
-    handleStopStreaming();
-    handleWritingFinish();
-  }, [setIsOpen, handleStopStreaming, handleWritingFinish]);
+    if (isReady) return;
 
-  const handleChangeUserMessage = useCallback((value: string) => {
-    setuserMessage(value);
-  }, []);
+    if (isStreaming || isWriting) {
+      handleStopStreaming();
+      addModelMessage(currentMessage);
+    }
 
-  const cleanError = useCallback(() => {
-    setStatus(CHAT_STATUS_ENUM.READY);
-  }, []);
-
-  const processStream = useCallback(
-    async (response: Response) => {
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (!reader) return;
-
-      let accumulatedText = "";
-
-      try {
-        setStatus(CHAT_STATUS_ENUM.STREAMING);
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const events = chunk.split("\n");
-
-          for (const event of events) {
-            const line = event.replace("data:", "");
-            if (line === "event: error") {
-              throw new Error("Stream error");
-            }
-            if (!line.trim()) continue;
-
-            try {
-              const data = JSON.parse(line);
-
-              if (data.text) {
-                accumulatedText += data.text;
-                setCurrentMessage(accumulatedText);
-                scrollToBottom();
-              }
-
-              if (data.id) {
-                if (data.id !== conversationId) {
-                  setConversationId(data.id);
-                }
-              }
-            } catch {}
-          }
-        }
-      } catch (error) {
-        console.error("Stream error:", error);
-        throw error;
-      } finally {
-        setStatus(CHAT_STATUS_ENUM.WRITING);
-      }
-    },
-    [conversationId, scrollToBottom]
-  );
+    resetChatbotState();
+  }, [
+    setIsOpen,
+    handleStopStreaming,
+    isReady,
+    isStreaming,
+    isWriting,
+    resetChatbotState,
+    addModelMessage,
+    currentMessage,
+  ]);
 
   const handleSendMessage = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!userMessage.trim() || isLoading) return;
 
-      setStatus(CHAT_STATUS_ENUM.LOADING);
-
-      setuserMessage("");
+      setLoading();
+      setUserMessage("");
+      setCancelScrollingBottom(false);
 
       try {
         abortControllerRef.current = new AbortController();
@@ -188,19 +163,34 @@ export const useChatbotConfig = () => {
           setStreamId(streamId);
         }
 
-        setMessages((prev) => [
-          ...prev,
-          { content: userMessage, role: CHAT_ROLES.USER },
-        ]);
-        await processStream(response);
+        addUserMessage(userMessage);
+
+        await processStream({
+          response,
+          onStartStream: setStreaming,
+          onStreamEnd: setWriting,
+          updateCurrentMessage: setCurrentMessage,
+          updateConversationId,
+        });
       } catch (error: any) {
         if (error?.name !== "AbortError") {
-          setStatus(CHAT_STATUS_ENUM.ERROR);
+          setError();
           console.error("Request failed:", error);
         }
       }
     },
-    [conversationId, userMessage, messages, isLoading, processStream]
+    [
+      conversationId,
+      userMessage,
+      messages,
+      isLoading,
+      setError,
+      setLoading,
+      setStreaming,
+      setWriting,
+      updateConversationId,
+      addUserMessage,
+    ]
   );
 
   return {
