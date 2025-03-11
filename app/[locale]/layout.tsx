@@ -1,4 +1,4 @@
-import { ChatbotPage } from "@/pages";
+import { ChatbotPage } from "@/views";
 import { Analytics } from "@vercel/analytics/react";
 import { NextIntlClientProvider } from "next-intl";
 import {
