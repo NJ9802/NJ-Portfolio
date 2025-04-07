@@ -63,40 +63,42 @@ export default function Projects({ projects }: Props) {
   );
 
   return (
-    <div
-      className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row
-    max-w-full justify-evenly mx-auto items-center z-0"
-    >
+    <div className="relative flex flex-col items-center">
       <SectionHeader title={t("title")} />
-      {scrollPosition !== 0 && (
-        <ScrollButton className="left-20" onClick={() => handleScroll("left")}>
-          <ChevronLeftIcon className="h-24 w-24 text-gray-500" />
-        </ScrollButton>
-      )}
+      <div className="relative flex flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0">
+        {scrollPosition !== 0 && (
+          <ScrollButton
+            className="left-20 z-50"
+            onClick={() => handleScroll("left")}
+          >
+            <ChevronLeftIcon className="h-24 w-24 text-gray-500" />
+          </ScrollButton>
+        )}
 
-      <div
-        ref={scrollRef}
-        className="relative mt-6 md:mt-12 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 styled-scrollbar"
-      >
-        {projects.map((project, i) => (
-          <ProjectSection
-            key={project._id}
-            project={project}
-            i={i}
-            totalProjects={projects.length}
-          />
-        ))}
-      </div>
-      {scrollPosition !==
-        scrollRef.current?.clientWidth! * (projects.length - 1) && (
-        <ScrollButton
-          className="right-20"
-          onClick={() => handleScroll("right")}
+        <div
+          ref={scrollRef}
+          className="relative mt-6 md:mt-12 w-full flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory z-20 styled-scrollbar lg:scrollbar-none"
         >
-          <ChevronRightIcon className="h-24 w-24 text-gray-500" />
-        </ScrollButton>
-      )}
-      <div className="w-full absolute top-[30%] bg-accent/10 left-0 h-[26rem] -skew-y-12" />
+          {projects.map((project, i) => (
+            <ProjectSection
+              key={project._id}
+              project={project}
+              i={i}
+              totalProjects={projects.length}
+            />
+          ))}
+        </div>
+        {scrollPosition !==
+          scrollRef.current?.clientWidth! * (projects.length - 1) && (
+          <ScrollButton
+            className="right-20 z-50"
+            onClick={() => handleScroll("right")}
+          >
+            <ChevronRightIcon className="h-24 w-24 text-gray-500" />
+          </ScrollButton>
+        )}
+        <div className="w-full absolute top-[30%] bg-accent/10 left-0 h-[26rem] -skew-y-12" />
+      </div>
     </div>
   );
 }

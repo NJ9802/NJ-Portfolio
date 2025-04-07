@@ -1,3 +1,4 @@
+import Section from "@/components/Section";
 import About from "../../components/About";
 import ContactMe from "../../components/ContactMe";
 import Experience from "../../components/Experience";
@@ -21,31 +22,31 @@ const Home = async () => {
 
   return (
     <ScrolleableDiv>
-      <section id="hero">
+      <Section id="hero" first>
         <Hero pageInfo={pageInfo} />
-      </section>
+      </Section>
 
-      <section id="about">
+      <Section id="about">
         <About pageInfo={pageInfo} />
-      </section>
+      </Section>
 
       {workExperiences.length !== 0 && (
-        <section id="experience">
+        <Section id="experience">
           <Experience workExperiences={workExperiences} />
-        </section>
+        </Section>
       )}
 
-      <section id="skills">
+      <Section id="skills">
         <Skills skills={skills} />
-      </section>
+      </Section>
 
-      <section id="projects">
+      <Section id="projects">
         <Projects projects={projects} />
-      </section>
+      </Section>
 
-      <section id="contact">
+      <Section id="contact">
         <ContactMe pageInfo={pageInfo} />
-      </section>
+      </Section>
     </ScrolleableDiv>
   );
 };
