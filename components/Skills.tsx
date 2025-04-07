@@ -12,13 +12,10 @@ export default function Skills({ skills }: Props) {
   const t = useTranslations("Skills");
 
   return (
-    <div
-      className="flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen
-    justify-center xl:space-y-0 items-center mx-auto"
-    >
+    <div className="flex relative flex-col text-center md:text-left max-w-[2000px] xl:px-10 justify-center items-center mx-auto">
       <SectionHeader title={t("title")} />
 
-      <h3 className="hidden lg:flex absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+      <h3 className="hidden lg:block uppercase tracking-[3px] text-gray-500 text-sm mb-10">
         {t("subtitle")}
       </h3>
 

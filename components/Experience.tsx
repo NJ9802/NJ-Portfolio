@@ -9,7 +9,7 @@ export default function Experience({ workExperiences }: Props) {
   const t = useTranslations("Experience");
   return (
     <div
-      className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full md:px-10
+      className="relative flex overflow-hidden flex-col text-left max-w-full md:px-10
     justify-evenly mx-auto items-center"
     >
       <SectionHeader title={t("title")} />

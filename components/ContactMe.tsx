@@ -14,8 +14,8 @@ export default function ContactMe({ pageInfo }: Props) {
 
   return (
     <div
-      className="h-screen relative flex flex-col text-center md:text-left md:flex-row
-     max-w-7xl px-10 justify-center mx-auto items-center"
+      className="relative flex flex-col text-center md:text-left
+     max-w-7xl px-10 pb-32 mx-auto items-center"
     >
       <SectionHeader title={t("title")} />
 

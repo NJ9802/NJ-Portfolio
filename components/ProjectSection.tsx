@@ -44,7 +44,7 @@ function Project({ project, i, totalProjects: total }: Props) {
     <article
       key={project._id}
       className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5
-      items-center justify-center p-10 md:p-44 h-screen"
+      items-center justify-center px-10 md:px-44 mb-10"
     >
       <div className="mb-8">
         <Image
@@ -59,7 +59,7 @@ function Project({ project, i, totalProjects: total }: Props) {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         ref={cardEl}
-        className="relative overflow-hidden max-h-[400px] sm:max-h-none space-y-4 px-10 py-5 max-w-6xl
+        className="relative overflow-hidden max-h-[400px] sm:max-h-[400px] space-y-4 px-10 py-5 max-w-6xl
       bg-black/10 backdrop-blur-md rounded-lg xl:min-w-[894px]"
       >
         <div className="flex justify-center items-center space-x-2">
