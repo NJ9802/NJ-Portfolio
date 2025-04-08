@@ -44,7 +44,7 @@ function Project({ project, i, totalProjects: total }: Props) {
     <article
       key={project._id}
       className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5
-      items-center justify-center px-10 md:px-44 mb-10"
+      items-center justify-center px-10 lg:px-44 mb-10"
     >
       <div className="mb-8">
         <Image
@@ -72,7 +72,7 @@ function Project({ project, i, totalProjects: total }: Props) {
           <span className="md:hidden">
             {isDemo && (
               <a href={project.linkToDemo}>
-                <GlobeAltIcon className="h-4 w-4 text-gray-500" />
+                <GlobeAltIcon className="h-5 w-5 text-gray-500" />
               </a>
             )}
           </span>
