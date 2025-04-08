@@ -22,9 +22,7 @@ export default function ContactMe({ pageInfo }: Props) {
       <div className="flex flex-col space-y-5 px-5">
         <h4 className="hidden xs:block text-md text-white md:text-2xl font-semibold text-center">
           {t("subtitle")}
-          <span className="decoration-accent/50 underline ml-2">
-            {t("letsTalk")}
-          </span>
+          <span className="ml-2">{t("letsTalk")}</span>
         </h4>
 
         <div className="hidden xs:block space-y-1 ">

@@ -14,7 +14,7 @@
   }
 
   .projectLink {
-    @apply mr-1 hidden xl:block px-6 py-2 border border-black/5 rounded-lg uppercase text-xs
+    @apply mr-1 hidden md:block px-6 py-2 border border-black/5 rounded-lg uppercase text-xs
     tracking-widest text-gray-500 shadow-md transition-all duration-300 hover:border-accent/40
    hover:text-accent bg-black/20;
   }

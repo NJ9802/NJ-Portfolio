@@ -34,7 +34,7 @@ export default function ExperienceCard({ workExperience }: Props) {
               key={technology._id}
               src={technology.logo}
               alt={technology.title}
-              className="rounded-full"
+              className="rounded-full shrink-0"
               width={24}
               height={24}
             />
